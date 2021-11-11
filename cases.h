@@ -7,6 +7,9 @@ typedef struct switches_flags {
     int c;
 }switches;
 
+switches check_switch_case(int argc, char **arguments_arr) ;
+void print_According_to_v(switches swt, int ismatch, char *line);
+void print_According_to_c(switches swt, int is_match, int line_counter);
 
 void  ignore_letter_case(FILE *fptr, char *phrase);
 #define NUMBER_OF_SWITCHES 7

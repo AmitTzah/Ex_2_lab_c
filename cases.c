@@ -49,3 +49,35 @@ void print_non_match_lines(FILE *fptr, char *phrase){
     fclose(fptr);
 
 }
+
+switches check_switch_case(int argc, char **arguments_arr) {
+
+    switches switches_status;
+    for (int i = 0; i < argc; i++) {
+        if (!strcmp(arguments_arr[i], "-i")) {
+            switches_status.i = 1;
+        }
+        if (!strcmp(arguments_arr[i], "-v")) {
+            switches_status.v = 1;
+        }
+        if (!strcmp(arguments_arr[i], "-c")) {
+            switches_status.c = 1;
+        }
+    }
+    return switches_status;
+}
+
+void print_According_to_v(switches swt, int is_match, char *line){
+
+    if(swt.v & (!is_match))
+            printf("%s", line);
+    else if((!swt.v) & is_match)
+            printf("%s", line);
+
+}
+void print_According_to_c(switches swt, int is_match, int line_counter){
+    if(swt.v & (!is_match))
+        printf("%d, ", line_counter);
+    else if((!swt.v) & is_match)
+        printf("%d, ", line_counter);
+}
