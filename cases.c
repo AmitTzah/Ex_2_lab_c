@@ -1,13 +1,15 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <ctype.h>
+
 #include "cases.h"
 
 
 
-char *str_to_lowercase(char *str)
+char *str_to_lowercase(const char *str)
 {
-    char *lower_str;
+    char *lower_str = NULL;
     int i = 0;
     while (str[i] != '\0'){
 
@@ -51,9 +53,10 @@ void print_non_match_lines(FILE *fptr, char *phrase){
 }
 
 switches check_switch_case(int argc, char **arguments_arr) {
-
+    int i;
     switches switches_status;
-    for (int i = 0; i < argc; i++) {
+
+    for (i = 0; i < argc; i++) {
         if (!strcmp(arguments_arr[i], "-i")) {
             switches_status.i = 1;
         }
