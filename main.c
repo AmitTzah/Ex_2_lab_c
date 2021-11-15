@@ -10,15 +10,17 @@ int main(int argc, char *argv[]) {
 
     char *current_line = NULL;
     char* temp_current_line=NULL;
-    char *temp_pattern= calloc((strlen(argv[1]))+1,sizeof (char));
+
+    char *temp_pattern= calloc((strlen(argv[1]))+2,sizeof(char));
 
     size_t n;
     switches switches_status;
     int lines_counter = 0, is_match = 0;
 
+    int pattern_index=find_index_of_pattern_argument(argc, argv);
 
 
-    FILE *fptr= fopen(argv[2], "r");
+    FILE *fptr= fopen(argv[pattern_index+1], "r");
 
 
     if (fptr ==NULL){
@@ -30,9 +32,9 @@ int main(int argc, char *argv[]) {
 
     while(getline(&current_line, &n, fptr) != EOF){
         lines_counter ++;
-        temp_current_line= calloc((strlen(current_line))+1, sizeof(char));
+        temp_current_line= calloc((strlen(current_line))+2, sizeof(char));
         strcpy(temp_current_line,current_line);
-        strcpy(temp_pattern,argv[1]);
+        strcpy(temp_pattern,argv[pattern_index]);
 
         is_match = is_match_in_line(switches_status,lines_counter, temp_current_line,temp_pattern);
 

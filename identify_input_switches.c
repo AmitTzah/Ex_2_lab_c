@@ -32,3 +32,14 @@ switches check_switch_case(int argc, char **arguments_arr) {
     return switches_status;
 }
 
+int find_index_of_pattern_argument(int argc, char **arguments_arr){
+
+    int i;
+    for (i = 1; i < argc; i++) {
+        if(arguments_arr[i][0]!='-'){
+            return i;
+        }
+    }
+
+
+}

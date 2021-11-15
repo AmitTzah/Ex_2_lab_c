@@ -6,3 +6,4 @@ gcc *.c -o my_grep
 ./working_tests/run3.sh
 ./working_tests/run4.sh
 ./working_tests/run5.sh
+./working_tests/run6.sh
