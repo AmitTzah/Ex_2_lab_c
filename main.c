@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "identify_input_switches.h"
 #include "print_outputs.h"
@@ -7,7 +8,10 @@
 
 int main(int argc, char *argv[]) {
 
-    char *current_line = NULL, *temp_line;
+    char *current_line = NULL;
+    char* temp_current_line=NULL;
+    char *temp_pattern= calloc((strlen(argv[1]))+1,sizeof (char));
+
     size_t n;
     switches switches_status;
     int lines_counter = 0, is_match = 0;
@@ -26,21 +30,19 @@ int main(int argc, char *argv[]) {
 
     while(getline(&current_line, &n, fptr) != EOF){
         lines_counter ++;
-        temp_line = current_line;
+        temp_current_line= calloc((strlen(current_line))+1, sizeof(char));
+        strcpy(temp_current_line,current_line);
+        strcpy(temp_pattern,argv[1]);
 
+        is_match = is_match_in_line(switches_status,lines_counter, temp_current_line,temp_pattern);
 
-        is_match = is_match_in_line(switches_status,lines_counter, temp_line,argv[1]);
-
-        if(switches_status.i)
-            temp_line = str_to_lowercase(temp_line);
-
-
-
-        print_According_to_switches(switches_status,is_match,lines_counter,temp_line);
+        print_According_to_switches(switches_status,is_match,lines_counter,current_line);
 
         is_match = 0;
+        free(temp_current_line);
     }
     free(current_line);
+    free(temp_pattern);
     fclose(fptr);
 
     return 0;

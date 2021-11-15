@@ -13,10 +13,10 @@ typedef struct switches_flags {
 
 
 switches check_switch_case(int argc, char **arguments_arr) ;
-void  ignore_letter_case(FILE *fptr, char *phrase);
 
 
-char *str_to_lowercase(const char *str);
+
+
 
 
 #endif
