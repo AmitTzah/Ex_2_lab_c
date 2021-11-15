@@ -8,6 +8,9 @@ typedef struct switches_flags {
     int i;
     int v;
     int c;
+    int n;
+    int b;
+    int x;
     int no_switches;
 }switches;
 
