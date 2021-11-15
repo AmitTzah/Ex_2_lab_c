@@ -49,14 +49,20 @@ int is_match_in_line(switches switches_status, int lines_counter ,char* current_
 
     }
 
-    if(switches_status.i==1){
+    if(switches_status.i==1) {
         str_to_lowercase(pattern);
         str_to_lowercase(current_line);
+    }
 
-        if (strstr(current_line, pattern) != NULL){
+    if(switches_status.x==1){
+        if(!strcmp(current_line,pattern))
             return 1;
-        }
+        else
+            return 0;
+    }
 
+    if(strstr(current_line, pattern) != NULL){
+        return 1;
     }
 
     return 0;

@@ -8,12 +8,16 @@ typedef struct switches_flags {
     int i;
     int v;
     int c;
+    int n;
+    int b;
+    int x;
     int no_switches;
 }switches;
 
 
 switches check_switch_case(int argc, char **arguments_arr) ;
 
+int find_index_of_pattern_argument(int argc, char **arguments_arr);
 
 
 

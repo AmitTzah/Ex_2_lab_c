@@ -28,7 +28,32 @@ switches check_switch_case(int argc, char **arguments_arr) {
             switches_status.no_switches=0;
 
         }
+        if (!strcmp(arguments_arr[i], "-n")) {
+            switches_status.n = 1;
+            switches_status.no_switches=0;
+
+        }
+        if (!strcmp(arguments_arr[i], "-b")) {
+            switches_status.b = 1;
+            switches_status.no_switches=0;
+
+        }
+        if (!strcmp(arguments_arr[i], "-x")) {
+            switches_status.x = 1;
+            switches_status.no_switches=0;
+
+        }
     }
     return switches_status;
 }
+int find_index_of_pattern_argument(int argc, char **arguments_arr){
 
+    int i;
+    for (i = 1; i < argc; i++) {
+        if(arguments_arr[i][0]!='-'){
+            return i;
+        }
+    }
+
+
+}
