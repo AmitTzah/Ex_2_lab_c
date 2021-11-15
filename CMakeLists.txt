@@ -3,4 +3,4 @@ project(Ex_2_lab_c C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_executable(Ex_2_lab_c main.c cases.c)
+add_executable(Ex_2_lab_c main.c cases.c print_outputs.c print_outputs.h)

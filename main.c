@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+
 #include "cases.h"
+#include "print_outputs.h"
 
 int main(int argc, char *argv[]) {
 
@@ -29,14 +31,8 @@ int main(int argc, char *argv[]) {
         if (strstr(temp_line, argv[argc - 2]) != NULL)
             is_match = 1;
 
-        if(switches_status.c) {
-            print_According_to_c(switches_status, is_match, lines_counter);
-            is_match = 0;
-            continue;
-        }
+        print_According_to_switches(switches_status,is_match,lines_counter,current_line);
 
-
-        print_According_to_v(switches_status, is_match, current_line);
         is_match = 0;
     }
     free(current_line);

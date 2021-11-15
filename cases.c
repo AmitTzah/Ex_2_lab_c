@@ -6,7 +6,7 @@
 #include "cases.h"
 
 
-
+//public functions.
 char *str_to_lowercase(const char *str)
 {
     char *lower_str = NULL;
@@ -36,21 +36,7 @@ void ignore_letter_case(FILE *fptr, char *phrase){
 
 }
 
-void print_non_match_lines(FILE *fptr, char *phrase){
 
-    char *current_line = NULL;
-    size_t n;
-
-    while(getline(&current_line, &n, fptr) != EOF){
-        if (strstr(current_line, phrase) != NULL)
-            continue;
-        else
-            printf("%s", current_line);
-    }
-    free(current_line);
-    fclose(fptr);
-
-}
 
 switches check_switch_case(int argc, char **arguments_arr) {
     int i;
@@ -70,17 +56,3 @@ switches check_switch_case(int argc, char **arguments_arr) {
     return switches_status;
 }
 
-void print_According_to_v(switches swt, int is_match, char *line){
-
-    if(swt.v & (!is_match))
-            printf("%s", line);
-    else if((!swt.v) & is_match)
-            printf("%s", line);
-
-}
-void print_According_to_c(switches swt, int is_match, int line_counter){
-    if(swt.v & (!is_match))
-        printf("%d, ", line_counter);
-    else if((!swt.v) & is_match)
-        printf("%d, ", line_counter);
-}
