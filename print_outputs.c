@@ -5,7 +5,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include "cases.h"
+#include "identify_input_switches.h"
 #include "print_outputs.h"
 
 

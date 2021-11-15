@@ -1,9 +1,9 @@
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
 
-#include "cases.h"
+#include "identify_input_switches.h"
 #include "print_outputs.h"
+#include "match_pattern_to_line.h"
 
 int main(int argc, char *argv[]) {
 
@@ -28,8 +28,8 @@ int main(int argc, char *argv[]) {
         lines_counter ++;
         temp_line = current_line;
 
-        if (strstr(temp_line, argv[1]) != NULL)
-            is_match = 1;
+
+        is_match = is_match_in_line(switches_status,lines_counter, temp_line,argv[1]);
 
         if(switches_status.i)
             temp_line = str_to_lowercase(temp_line);

@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <ctype.h>
 
-#include "cases.h"
+#include "identify_input_switches.h"
 
 
 //public functions.

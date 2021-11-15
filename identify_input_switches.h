@@ -2,6 +2,7 @@
 #define CASES_H
 
 #define NUMBER_OF_SWITCHES 7
+#include <stdio.h>
 
 typedef struct switches_flags {
     int i;
