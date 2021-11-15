@@ -11,5 +11,4 @@ void print_According_to_switches(switches switches_status, int is_match, int lin
 
 
 
-
 #endif //EX_2_LAB_C_PRINT_OUTPUTS_H
