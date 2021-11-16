@@ -49,6 +49,12 @@ switches check_switch_case(int argc, char **arguments_arr) {
             switches_status.a.line_remains_to_print = 0;
             switches_status.no_switches=0;
 
+        }
+        if (!strcmp(arguments_arr[i], "-E")) {
+            switches_status.e.value = 1;
+            switches_status.e.pattern = arguments_arr[i+1];
+
+            switches_status.no_switches=0;
 
         }
     }

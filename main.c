@@ -5,6 +5,7 @@
 #include "identify_input_switches.h"
 #include "print_outputs.h"
 #include "match_pattern_to_line.h"
+#include "regular_expression.h"
 
 int main(int argc, char *argv[]) {
 
@@ -27,14 +28,14 @@ int main(int argc, char *argv[]) {
         printf("failed to open file!\n");
         exit(1);
     }
+    strcpy(temp_pattern,argv[pattern_index]);
 
-    switches_status = check_switch_case(argc, argv);
 
     while(getline(&current_line, &n, fptr) != EOF){
         lines_counter ++;
         temp_current_line= calloc((strlen(current_line))+2, sizeof(char));
         strcpy(temp_current_line,current_line);
-        strcpy(temp_pattern,argv[pattern_index]);
+        switches_status = check_switch_case(argc, argv);
 
         is_match = is_match_in_line(switches_status,lines_counter, temp_current_line,temp_pattern);
 
