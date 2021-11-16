@@ -74,9 +74,11 @@ void print_According_to_switches(switches switches_status, int is_match, int lin
         print_According_to_b(switches_status, is_match, bytes_counter);
     }
 
+
+    if((switches_status.a.line_remains_to_print - 1 == switches_status.a.lines_to_print_case_A )  && (lines_counter > 2))
+        printf("--\n");
+
     printer(switches_status, is_match, current_line);
-
-
 
 
     //grep always prints newlines, even if the file input does not end in '\n', so we should add it.
