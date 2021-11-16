@@ -83,13 +83,6 @@ int is_match_in_line(switches switches_status, int lines_counter , char* current
         }
     }
 
-    if((switches_status.a.value == 1) && (switches_status.a.line_remains_to_print > 0)){
-        return 1;
-    }
-
-
-
-
     if(switches_status.i==1) {
         str_to_lowercase(pattern);
         str_to_lowercase(current_line);
@@ -104,7 +97,6 @@ int is_match_in_line(switches switches_status, int lines_counter , char* current
 
     if(strstr(current_line, pattern) != NULL)
         return 1;
-
 
     return 0;
 }
