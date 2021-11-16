@@ -32,7 +32,6 @@ int main(int argc, char *argv[]) {
 
     while(getline(&current_line, &n, fptr) != EOF){
         lines_counter ++;
-        bytes_counter += strlen(current_line);
         temp_current_line= calloc((strlen(current_line))+2, sizeof(char));
         strcpy(temp_current_line,current_line);
         strcpy(temp_pattern,argv[pattern_index]);
@@ -46,6 +45,7 @@ int main(int argc, char *argv[]) {
 
         is_match = 0;
         switches_status.a.line_remains_to_print --;
+        bytes_counter += strlen(current_line);
         free(temp_current_line);
     }
     free(current_line);

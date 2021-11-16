@@ -7,6 +7,6 @@
 
 
 
-int is_match_in_line(switches switches_status, int lines_counter ,char* current_line, char* pattern);
+int is_match_in_line(switches switches_status, int lines_counter,char* current_line, char* pattern);
 
 #endif //EX_2_LAB_C_MATCH_PATTERN_TO_LINE_H
