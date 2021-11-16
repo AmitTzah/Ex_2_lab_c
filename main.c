@@ -41,7 +41,11 @@ int main(int argc, char *argv[]) {
 
         print_According_to_switches(switches_status,is_match,lines_counter,bytes_counter, current_line);
 
+        if((is_match) && (switches_status.a.line_remains_to_print <= 0))
+            switches_status.a.line_remains_to_print = switches_status.a.lines_to_print_case_A + 1;
+
         is_match = 0;
+        switches_status.a.line_remains_to_print --;
         free(temp_current_line);
     }
     free(current_line);
