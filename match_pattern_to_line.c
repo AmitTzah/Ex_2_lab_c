@@ -42,6 +42,13 @@ void ignore_letter_case(FILE *fptr, char *phrase){
 
 
 //public functions
+int count_number_of_matches(switches swt, int is_match){
+    if((swt.c == 1) && (is_match) && (!swt.v))
+        return 1;
+    else if((swt.c == 1) && (!is_match) && (swt.v))
+        return 1;
+}
+
 int is_match_in_line(switches switches_status, int lines_counter , char* current_line, char* pattern){
 
 

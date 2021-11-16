@@ -10,12 +10,7 @@
 
 
 //private functions
-void print_According_to_c(switches swt, int is_match, int line_counter){
-    if(swt.v & (!is_match))
-        printf("%d,", line_counter);
-    else if((!swt.v) & is_match)
-        printf("%d,", line_counter);
-}
+
 
 void print_According_to_n(switches swt, int is_match, int line_counter){
     if(swt.v & (!is_match))
@@ -53,7 +48,7 @@ void print_non_match_lines(FILE *fptr, char *phrase){
 }
 
 //public functions
-void print_According_to_switches(switches switches_status, int is_match, int lines_counter ,int bytes_counter, char* current_line ){
+void print_According_to_switches(switches switches_status, int is_match, int lines_counter ,int bytes_counter, int match_counter, char* current_line ){
 
 
     if((switches_status.no_switches==1) && is_match==1){
@@ -61,10 +56,9 @@ void print_According_to_switches(switches switches_status, int is_match, int lin
         return;
     }
 
-    if(switches_status.c) {
-        print_According_to_c(switches_status, is_match, lines_counter);
+    if(switches_status.c)
         return;
-    }
+
 
     if(switches_status.n) {
         print_According_to_n(switches_status, is_match, lines_counter);
@@ -86,4 +80,9 @@ void print_According_to_switches(switches switches_status, int is_match, int lin
         printf("\n");
 
     }
+}
+
+void c_case_print(switches switches_status, int match_counter){
+    if(switches_status.c)
+        printf("%d", match_counter);
 }
