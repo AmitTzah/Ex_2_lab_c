@@ -13,3 +13,5 @@ gcc *.c -o my_grep
 ./working_tests/run10.sh
 ./working_tests/run11.sh
 ./working_tests/run12.sh
+./working_tests/run13.sh
+./working_tests/run14.sh

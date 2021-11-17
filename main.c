@@ -42,11 +42,10 @@ int main(int argc, char *argv[]) {
         temp_current_line= calloc((strlen(current_line))+1, sizeof(char));
         strcpy(temp_current_line,current_line);
 
-        is_match = is_match_in_line(p_switches_status,lines_counter, temp_current_line,temp_pattern);
-        match_counter += count_number_of_matches(switches_status, is_match);
+        is_match = is_match_in_line(p_switches_status,lines_counter, temp_current_line,temp_pattern,&match_counter);
 
 
-        print_According_to_switches(p_switches_status,is_match,lines_counter,match_counter, bytes_counter, current_line);
+        print_According_to_switches(p_switches_status,is_match,lines_counter,&match_counter, bytes_counter, current_line);
 
 
         bytes_counter += strlen(temp_current_line);

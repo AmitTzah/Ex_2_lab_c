@@ -80,7 +80,7 @@ int count_number_of_matches(switches swt, int is_match){
         return 1;
 }
 
-int is_match_in_line(switches* switches_status, int lines_counter , char* current_line, char* pattern){
+int is_match_in_line(switches* switches_status, int lines_counter , char* current_line, char* pattern, int* match_counter){
 
     int is_match=0;
 
@@ -121,6 +121,7 @@ int is_match_in_line(switches* switches_status, int lines_counter , char* curren
     if(strstr(current_line, pattern) != NULL)
         is_match=1;
 
+    //Test for v case.
     flip_is_match(&is_match,switches_status->v);
 
     if((switches_status->a).value == 1){
@@ -134,11 +135,14 @@ int is_match_in_line(switches* switches_status, int lines_counter , char* curren
             (switches_status->a).line_remains_to_print--;
             if((switches_status->a).line_remains_to_print!=0) {
                 is_match = 1;
+                *match_counter-=1;
             }
 
         }
     }
-
+    if(is_match){
+        *match_counter+=1;
+    }
     return is_match;
 }
 
