@@ -3,7 +3,7 @@
 
 #define NUMBER_OF_SWITCHES 8
 #include <stdio.h>
-#include "regular_expression.h"
+#include "regular_expressions.h"
 
 typedef struct case_A{
     int value;
@@ -13,7 +13,7 @@ typedef struct case_A{
 
 typedef struct case_E{
     int value;
-    char pattern;
+    char* pattern;
     E_structs_array E_array;
 }case_E;
 
@@ -30,7 +30,8 @@ typedef struct switches_flags {
 }switches;
 
 
-switches check_switch_case(int argc, char **arguments_arr) ;
+
+switches check_switch_case(int argc, char **arguments_arr, int pattern_index);
 
 int find_index_of_pattern_argument(int argc, char **arguments_arr);
 

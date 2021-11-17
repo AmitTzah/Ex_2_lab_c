@@ -8,6 +8,6 @@ typedef struct E_structs_array{
 
 }E_structs_array;
 
-char *find_next_char(char *pattern, int index);
+char find_next_char(char *pattern, int index);
 
 #endif

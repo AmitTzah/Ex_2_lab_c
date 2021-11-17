@@ -5,7 +5,7 @@
 #include "identify_input_switches.h"
 #include "print_outputs.h"
 #include "match_pattern_to_line.h"
-#include "regular_expression.h"
+
 
 int main(int argc, char *argv[]) {
 
@@ -29,7 +29,7 @@ int main(int argc, char *argv[]) {
         exit(1);
     }
     strcpy(temp_pattern,argv[pattern_index]);
-    switches_status = check_switch_case(argc, argv);
+    switches_status = check_switch_case(argc, argv,pattern_index);
 
 
     while(getline(&current_line, &n, fptr) != EOF){

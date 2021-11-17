@@ -7,7 +7,7 @@
 
 //public functions.
 
-switches check_switch_case(int argc, char **arguments_arr) {
+switches check_switch_case(int argc, char **arguments_arr, int pattern_index) {
     int i;
     switches switches_status={0};
     switches_status.no_switches=1;
@@ -52,7 +52,7 @@ switches check_switch_case(int argc, char **arguments_arr) {
         }
         if (!strcmp(arguments_arr[i], "-E")) {
             switches_status.e.value = 1;
-            switches_status.e.pattern = arguments_arr[i+1];
+            switches_status.e.pattern = arguments_arr[pattern_index];
 
             switches_status.no_switches=0;
 

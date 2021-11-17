@@ -9,13 +9,13 @@
 
 #include "identify_input_switches.h"
 #include "match_pattern_to_line.h"
-#include "regular_expression.h"
+
 
 //private functions
 
 int is_match_in_place(char *current_word, char* pattern, int index){
 
-    char *a = pattern[index];
+
     if(pattern[index ] == 0x27)
         return 1;
     if(find_next_char(pattern, index) != current_word[index-1])
