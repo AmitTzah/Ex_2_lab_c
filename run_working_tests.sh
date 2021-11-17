@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-gcc main.c identify_input_switches.c match_pattern_to_line.c print_outputs.c -o my_grep
+gcc *.c -o my_grep
 ./working_tests/run1.sh
 ./working_tests/run2.sh
 ./working_tests/run3.sh
