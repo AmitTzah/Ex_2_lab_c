@@ -29,9 +29,35 @@ void flip_is_match(int * is_match,int is_v_on){
     }
 }
 
+int is_match_reg_exp_dot(char *current_word, char* pattern){
+
+    char *temp_pattern = calloc(strlen(pattern), sizeof(char));
+    int i=1;
+    while (pattern[i] != 0x2e){
+        temp_pattern[i-1] = pattern[i];
+        i++;
+    }
+
+    if (strstr(current_word, temp_pattern) != NULL)
+        return 1;
+    else
+        return 0;
+}
+
+int check_if_dot(char* pattern){
+    int i=1;
+    while(pattern[i] != '\0') {
+        if ((pattern[i] == 0x2e) && (pattern[i - 1] != 0x5c))
+            return 1;
+        i++;
+    }
+    return 0;
+}
+
 int is_match_in_place(char *current_word, char* pattern, int index){
 
-
+    if(check_if_dot(pattern))
+        return is_match_reg_exp_dot(current_word, pattern);
     if(pattern[index ] == 0x27)
         return 1;
     if(find_next_char(pattern, index) != current_word[index-1])
@@ -39,6 +65,9 @@ int is_match_in_place(char *current_word, char* pattern, int index){
     if(pattern[index] == 0x5c)
         index++;
     return is_match_in_place(current_word, pattern, index + 1);
+
+
+
 }
 char * str_to_lowercase( char *str)
 {
