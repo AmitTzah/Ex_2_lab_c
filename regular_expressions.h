@@ -10,5 +10,6 @@ typedef struct E_structs_array{
 
 char find_next_char(char *pattern, int index);
 int check_if_dot(char* pattern);
+int check_if_circles(char* pattern);
 
 #endif

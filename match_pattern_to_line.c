@@ -44,15 +44,43 @@ int is_match_reg_exp_dot(char *current_word, char* pattern){
     else
         return 0;
 }
+ int is_match_reg_exp_circles(char *current_word, char *pattern){
+    char *temp1 = calloc(strlen(pattern), sizeof(char));
+    char *temp2 = calloc(strlen(pattern), sizeof(char));
+    int i=2, j=0;
+    temp1[j]= 0x27;
+    temp2[j]= 0x27;
+    j++;
+     while (pattern[i] != 0x7c){
+         temp1[j] = pattern[i];
+         i++;
+         j++;
+     }
+     temp1[j] = 0x27;
+     j=1;
+     i++;
+     while (pattern[i] != 0x29){
+         temp2[j] = pattern[i];
+         i++;
+         j++;
+     }
+     temp2[j] = 0x27;
+     i=1;
+     j=1;
+     return (is_match_in_place(current_word, temp1,i) || is_match_in_place(current_word, temp2,j));
 
+ }
 
 
 
 int is_match_in_place(char *current_word, char* pattern, int index){
 
+    char *blank =' ';
     if(check_if_dot(pattern))
         return is_match_reg_exp_dot(current_word, pattern);
-    if(pattern[index ] == 0x27)
+    if(check_if_circles(pattern))
+        return is_match_reg_exp_circles(current_word, pattern);
+    if((pattern[index] == 0x27) && ((current_word[index+1] == blank) || (current_word[index+1]=='\0')))
         return 1;
     if(find_next_char(pattern, index) != current_word[index-1])
         return 0;
