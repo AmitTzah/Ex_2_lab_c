@@ -9,6 +9,7 @@
 
 #include "identify_input_switches.h"
 #include "match_pattern_to_line.h"
+#include "regular_expressions.h"
 
 
 //private functions
@@ -44,15 +45,8 @@ int is_match_reg_exp_dot(char *current_word, char* pattern){
         return 0;
 }
 
-int check_if_dot(char* pattern){
-    int i=1;
-    while(pattern[i] != '\0') {
-        if ((pattern[i] == 0x2e) && (pattern[i - 1] != 0x5c))
-            return 1;
-        i++;
-    }
-    return 0;
-}
+
+
 
 int is_match_in_place(char *current_word, char* pattern, int index){
 
