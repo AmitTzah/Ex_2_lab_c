@@ -12,7 +12,6 @@ int main(int argc, char *argv[]) {
     char *current_line = NULL;
     char* temp_current_line=NULL;
 
-    char *temp_pattern= calloc((strlen(argv[1]))+2,sizeof(char));
 
     size_t n;
 
@@ -20,6 +19,8 @@ int main(int argc, char *argv[]) {
 
     int lines_counter = 0, is_match = 0, bytes_counter = 0, match_counter = 0;
     int pattern_index=find_index_of_pattern_argument(argc, argv);
+
+    char *temp_pattern= calloc((strlen(argv[pattern_index]))+1,sizeof(char));
 
     int is_stdin_=is_stdin(argc, argv, pattern_index);
 
@@ -32,7 +33,7 @@ int main(int argc, char *argv[]) {
 
     while(read_input_line(&current_line, &n,fptr, is_stdin_) != EOF){
         lines_counter ++;
-        temp_current_line= calloc((strlen(current_line))+2, sizeof(char));
+        temp_current_line= calloc((strlen(current_line))+1, sizeof(char));
         strcpy(temp_current_line,current_line);
 
         is_match = is_match_in_line(switches_status,lines_counter, temp_current_line,temp_pattern);
