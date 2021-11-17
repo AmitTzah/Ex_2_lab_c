@@ -35,7 +35,8 @@ switches check_switch_case(int argc, char **arguments_arr, int pattern_index);
 
 int find_index_of_pattern_argument(int argc, char **arguments_arr);
 
+ssize_t read_input_line(char ** current_line, size_t* n,FILE* fptr,int argc,char **arguments_arr, int pattern_index);
 
-
+void open_file_or_stdin(FILE** fptr, char **arguments_arr, int pattern_index,int argc);
 
 #endif

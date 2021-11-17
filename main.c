@@ -17,22 +17,16 @@ int main(int argc, char *argv[]) {
     size_t n;
     switches switches_status;
     int lines_counter = 0, is_match = 0, bytes_counter = 0, match_counter = 0;
-
     int pattern_index=find_index_of_pattern_argument(argc, argv);
 
+    FILE *fptr=NULL;
 
-    FILE *fptr= fopen(argv[pattern_index+1], "r");
+    open_file_or_stdin(&fptr,argv,pattern_index,argc);
 
-
-    if (fptr ==NULL){
-        printf("failed to open file!\n");
-        exit(1);
-    }
     strcpy(temp_pattern,argv[pattern_index]);
     switches_status = check_switch_case(argc, argv,pattern_index);
 
-
-    while(getline(&current_line, &n, fptr) != EOF){
+    while(read_input_line(&current_line, &n,fptr,argc,argv, pattern_index) != EOF){
         lines_counter ++;
         temp_current_line= calloc((strlen(current_line))+2, sizeof(char));
         strcpy(temp_current_line,current_line);
@@ -60,7 +54,9 @@ int main(int argc, char *argv[]) {
 
     free(current_line);
     free(temp_pattern);
-    fclose(fptr);
+
+
+    //fclose(fptr);
 
     return 0;
 }

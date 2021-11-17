@@ -4,6 +4,18 @@
 
 #include "identify_input_switches.h"
 
+//private functions
+
+int is_stdin(int argc, char **arguments_arr, int pattern_index){
+
+    if((pattern_index+1)==argc || (arguments_arr[pattern_index+1][0]=='-')){
+
+        return 1;
+    }
+
+    return 0;
+
+}
 
 //public functions.
 
@@ -73,5 +85,48 @@ int find_index_of_pattern_argument(int argc, char **arguments_arr){
         }
     }
 
+return 0;
+}
+
+void open_file_or_stdin(FILE** fptr, char **arguments_arr, int pattern_index,int argc){
+    int is_stdin_;
+    is_stdin_ = is_stdin(argc,arguments_arr,pattern_index);
+
+    if (is_stdin_)
+    {
+
+        if (!freopen(NULL, "r", stdin)) {
+            printf("opening stdin for reading failed!");
+            exit(1);
+        }
+
+    }
+    else{
+
+         *fptr= fopen(arguments_arr[pattern_index+1], "r");
+
+        if (*fptr ==NULL){
+            printf("failed to open file!\n");
+            exit(1);
+        }
+    }
+
+}
+ssize_t read_input_line(char ** current_line, size_t* n,FILE* fptr,int argc,char **arguments_arr, int pattern_index)
+{
+    int is_stdin_;
+
+    is_stdin_ = is_stdin(argc,arguments_arr,pattern_index);
+
+    if (is_stdin_)
+    {
+
+        return getline(current_line, n, stdin);
+
+    }
+    else{
+
+        return getline(current_line, n, fptr);
+    }
 
 }
