@@ -13,7 +13,6 @@ int check_for_dot(){
 
 char *find_next_char(char *pattern, int index){
     E_structs_array e_array;
-    char *a = pattern[index];
     if(pattern[index] == 0x5C)  // Ascii for '\' is 92
         return pattern[index+1];
     return pattern[index];

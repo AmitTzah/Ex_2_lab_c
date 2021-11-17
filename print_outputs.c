@@ -48,12 +48,19 @@ void print_non_match_lines(FILE *fptr, char *phrase){
 }
 
 //public functions
-void print_According_to_switches(switches switches_status, int is_match, int lines_counter ,int bytes_counter, int match_counter, char* current_line ){
+void print_According_to_switches(switches switches_status, int is_match, int lines_counter , int match_counter, int bytes_counter, char* current_line ){
 
 
     if((switches_status.no_switches==1) && is_match==1){
         printf("%s", current_line);
         return;
+    }
+
+    if((is_match) && (switches_status.a.line_remains_to_print -1 == switches_status.a.lines_to_print_case_A) && (lines_counter > 1))
+        printf("--\n");
+
+    if((switches_status.a.value == 1) && (switches_status.a.line_remains_to_print > 0)){
+        is_match = 1;
     }
 
     if(switches_status.c)
@@ -69,12 +76,9 @@ void print_According_to_switches(switches switches_status, int is_match, int lin
     }
 
 
-    if((is_match) && (switches_status.a.line_remains_to_print -1 == switches_status.a.lines_to_print_case_A) && (lines_counter > 1))
-        printf("--\n");
 
-    if((switches_status.a.value == 1) && (switches_status.a.line_remains_to_print > 0)){
-        is_match = 1;
-    }
+
+
     printer(switches_status, is_match, current_line);
 
 
