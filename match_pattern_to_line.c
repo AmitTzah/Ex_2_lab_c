@@ -13,6 +13,22 @@
 
 //private functions
 
+void flip_is_match(int * is_match,int is_v_on){
+
+    if(is_v_on==1){
+
+        if(*is_match==1){
+
+            *is_match=0;
+        }
+
+        else{
+
+            *is_match=1;
+        }
+    }
+}
+
 int is_match_in_place(char *current_word, char* pattern, int index){
 
 
@@ -64,26 +80,29 @@ int count_number_of_matches(switches swt, int is_match){
         return 1;
 }
 
-int is_match_in_line(switches switches_status, int lines_counter , char* current_line, char* pattern){
+int is_match_in_line(switches* switches_status, int lines_counter , char* current_line, char* pattern){
 
-    if (strstr(current_line, pattern) != NULL && switches_status.no_switches==1) {
-        return 1;
+    int is_match=0;
+
+    if (strstr(current_line, pattern) != NULL && switches_status->no_switches==1) {
+        is_match=1;
 
     }
     //this if statement should stay on top of all the rest of the cases.
-    if(switches_status.i==1) {
+    if(switches_status->i==1) {
         str_to_lowercase(pattern);
         str_to_lowercase(current_line);
     }
 
-    if(switches_status.e.value == 1){
+
+    if((switches_status->e).value == 1){
         int index_initiate = 1, match_found = 0;
         char *blank = " ", *current_word;
         current_word= calloc((strlen(current_line))+2, sizeof(char));
         current_word = strtok(current_line, blank);
         while(current_word != NULL) {
             if(is_match_in_place(current_word, pattern, index_initiate)) {
-                return 1;
+                is_match=1;
             }
             current_word = strtok(NULL, blank);
 
@@ -92,15 +111,34 @@ int is_match_in_line(switches switches_status, int lines_counter , char* current
 
 
 
-    if(switches_status.x==1){
+    if(switches_status->x==1){
         if(!strcmp(current_line,pattern))
-            return 1;
+            is_match=1;
         else
-            return 0;
+            is_match=0;
     }
 
     if(strstr(current_line, pattern) != NULL)
-        return 1;
+        is_match=1;
 
-    return 0;
+    flip_is_match(&is_match,switches_status->v);
+
+    if((switches_status->a).value == 1){
+
+        if(is_match==1) {
+            (switches_status->a).line_remains_to_print = (switches_status->a).lines_to_print_case_A + 1;
+        }
+
+        else{
+
+            (switches_status->a).line_remains_to_print--;
+            if((switches_status->a).line_remains_to_print!=0) {
+                is_match = 1;
+            }
+
+        }
+    }
+
+    return is_match;
 }
+

@@ -13,6 +13,7 @@
 switches check_switch_case(int argc, char **arguments_arr, int pattern_index) {
     int i;
     switches switches_status={0};
+
     switches_status.no_switches=1;
 
 

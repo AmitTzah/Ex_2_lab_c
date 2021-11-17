@@ -12,31 +12,24 @@
 //private functions
 
 //if the last line doesn't have a line break character, grep will add it.
-void print_Line_break_after_the_last_line_if_needed( char* current_line, int is_match){
-    if(strchr(current_line,'\n')==NULL && is_match==1){
+void print_Line_break_after_the_last_line_if_needed( char* current_line){
+    if(strchr(current_line,'\n')==NULL ){
         printf("\n");
 
     }
 
 }
 
-void print_According_to_n(switches swt, int is_match, int line_counter){
-    if(swt.v & (!is_match))
-        printf("%d:", line_counter);
-    else if((!swt.v) & is_match)
-        printf("%d:", line_counter);
-}
-void print_According_to_b(switches swt, int is_match, int bytes_counter){
-    if(swt.v & (!is_match))
-        printf("%d:", bytes_counter);
-    else if((!swt.v) & is_match)
-        printf("%d:", bytes_counter);
-}
-void printer(switches swt, int is_match, char *line){
+void print_According_to_n( int line_counter){
 
-    if (swt.v & (!is_match))
-        printf("%s", line);
-    else if ((!swt.v) & is_match)
+        printf("%d:", line_counter);
+}
+void print_According_to_b( int bytes_counter){
+
+        printf("%d:", bytes_counter);
+}
+void printer( char *line){
+
         printf("%s", line);
 }
 void print_non_match_lines(FILE *fptr, char *phrase){
@@ -56,41 +49,46 @@ void print_non_match_lines(FILE *fptr, char *phrase){
 }
 
 //public functions
-void print_According_to_switches(switches switches_status, int is_match, int lines_counter , int match_counter, int bytes_counter, char* current_line ){
+void print_According_to_switches(switches* switches_status, int is_match, int lines_counter , int match_counter, int bytes_counter, char* current_line ){
 
+    //check if we actually need to print something
+    if(is_match==0){
 
-    if((switches_status.no_switches==1) && is_match==1){
-        printf("%s", current_line);
-        print_Line_break_after_the_last_line_if_needed(current_line, is_match);
         return;
     }
 
-    if((is_match) && (switches_status.a.line_remains_to_print -1 == switches_status.a.lines_to_print_case_A) && (lines_counter > 1)) {
+    if(switches_status->no_switches==1){
+        printf("%s", current_line);
+        print_Line_break_after_the_last_line_if_needed(current_line);
+        return;
+    }
+
+
+
+
+    if(((switches_status->a).line_remains_to_print -1 == (switches_status->a).lines_to_print_case_A) && (lines_counter > 1)) {
         printf("--\n");
 
     }
-    if((switches_status.a.value == 1) && (switches_status.a.line_remains_to_print > 0)){
-        is_match = 1;
-    }
 
-    if(switches_status.c)
+    if(switches_status->c)
         return;
 
 
-    if(switches_status.n) {
-        print_According_to_n(switches_status, is_match, lines_counter);
+    if(switches_status->n) {
+        print_According_to_n( lines_counter);
     }
 
-    if(switches_status.b) {
-        print_According_to_b(switches_status, is_match, bytes_counter);
+    if(switches_status->b) {
+        print_According_to_b( bytes_counter);
     }
 
 
 
 
 
-    printer(switches_status, is_match, current_line);
-    print_Line_break_after_the_last_line_if_needed(current_line,is_match);
+    printer( current_line);
+    print_Line_break_after_the_last_line_if_needed(current_line);
 
 
 }
