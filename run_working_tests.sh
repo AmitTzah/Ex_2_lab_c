@@ -10,3 +10,4 @@ gcc *.c -o my_grep
 ./working_tests/run7.sh
 ./working_tests/run8.sh
 ./working_tests/run9.sh
+./working_tests/run10.sh
