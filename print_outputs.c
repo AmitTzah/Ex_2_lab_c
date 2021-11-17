@@ -11,6 +11,14 @@
 
 //private functions
 
+//if the last line doesn't have a line break character, grep will add it.
+void print_Line_break_after_the_last_line_if_needed( char* current_line, int is_match){
+    if(strchr(current_line,'\n')==NULL && is_match==1){
+        printf("\n");
+
+    }
+
+}
 
 void print_According_to_n(switches swt, int is_match, int line_counter){
     if(swt.v & (!is_match))
@@ -53,12 +61,14 @@ void print_According_to_switches(switches switches_status, int is_match, int lin
 
     if((switches_status.no_switches==1) && is_match==1){
         printf("%s", current_line);
+        print_Line_break_after_the_last_line_if_needed(current_line, is_match);
         return;
     }
 
-    if((is_match) && (switches_status.a.line_remains_to_print -1 == switches_status.a.lines_to_print_case_A) && (lines_counter > 1))
+    if((is_match) && (switches_status.a.line_remains_to_print -1 == switches_status.a.lines_to_print_case_A) && (lines_counter > 1)) {
         printf("--\n");
 
+    }
     if((switches_status.a.value == 1) && (switches_status.a.line_remains_to_print > 0)){
         is_match = 1;
     }
@@ -80,16 +90,15 @@ void print_According_to_switches(switches switches_status, int is_match, int lin
 
 
     printer(switches_status, is_match, current_line);
+    print_Line_break_after_the_last_line_if_needed(current_line,is_match);
 
 
-    //grep always prints newlines, even if the file input does not end in '\n', so we should add it.
-    if(strchr(current_line,'\n')==NULL){
-        printf("\n");
-
-    }
 }
 
 void c_case_print(switches switches_status, int match_counter){
     if(switches_status.c)
         printf("%d", match_counter);
 }
+
+
+
