@@ -71,14 +71,7 @@ void ignore_letter_case(FILE *fptr, char *phrase){
 
 
 //public functions
-int count_number_of_matches(switches swt, int is_match){
-    if(swt.a.line_remains_to_print > 0)
-        is_match =1;
-    if((swt.c == 1) && (is_match) && (!swt.v))
-        return 1;
-    else if((swt.c == 1) && (!is_match) && (swt.v))
-        return 1;
-}
+
 
 int is_match_in_line(switches* switches_status, int lines_counter , char* current_line, char* pattern, int* match_counter){
 
@@ -98,7 +91,7 @@ int is_match_in_line(switches* switches_status, int lines_counter , char* curren
     if((switches_status->e).value == 1){
         int index_initiate = 1, match_found = 0;
         char *blank = " ", *current_word;
-        current_word= calloc((strlen(current_line))+2, sizeof(char));
+        current_word= calloc((strlen(current_line))+1, sizeof(char));
         current_word = strtok(current_line, blank);
         while(current_word != NULL) {
             if(is_match_in_place(current_word, pattern, index_initiate)) {
