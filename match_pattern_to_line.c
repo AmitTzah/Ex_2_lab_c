@@ -70,6 +70,11 @@ int is_match_in_line(switches switches_status, int lines_counter , char* current
         return 1;
 
     }
+    //this if statement should stay on top of all the rest of the cases.
+    if(switches_status.i==1) {
+        str_to_lowercase(pattern);
+        str_to_lowercase(current_line);
+    }
 
     if(switches_status.e.value == 1){
         int index_initiate = 1, match_found = 0;
@@ -85,10 +90,7 @@ int is_match_in_line(switches switches_status, int lines_counter , char* current
         }
     }
 
-    if(switches_status.i==1) {
-        str_to_lowercase(pattern);
-        str_to_lowercase(current_line);
-    }
+
 
     if(switches_status.x==1){
         if(!strcmp(current_line,pattern))
