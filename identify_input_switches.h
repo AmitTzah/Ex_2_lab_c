@@ -41,4 +41,5 @@ void open_file_or_stdin(FILE** fptr, char **arguments_arr,int is_stdin_, int pat
 
 int is_stdin(int argc, char **arguments_arr, int pattern_index);
 
+void close_file_if_needed(FILE *fptr, int is_stdin_);
 #endif

@@ -57,8 +57,7 @@ int main(int argc, char *argv[]) {
     free(current_line);
     free(temp_pattern);
 
-
-    //fclose(fptr);
+    close_file_if_needed(fptr, is_stdin_);
 
     return 0;
 }

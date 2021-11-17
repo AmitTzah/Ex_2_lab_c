@@ -127,3 +127,12 @@ int is_stdin(int argc, char **arguments_arr, int pattern_index){
     return 0;
 
 }
+
+void close_file_if_needed(FILE *fptr, int is_stdin_){
+
+    if(is_stdin_==0){
+
+        fclose(fptr);
+    }
+
+}
