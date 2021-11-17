@@ -15,6 +15,7 @@ int main(int argc, char *argv[]) {
     char *temp_pattern= calloc((strlen(argv[1]))+2,sizeof(char));
 
     size_t n;
+
     switches switches_status;
     int lines_counter = 0, is_match = 0, bytes_counter = 0, match_counter = 0;
     int pattern_index=find_index_of_pattern_argument(argc, argv);
