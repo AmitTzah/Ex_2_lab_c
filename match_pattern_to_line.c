@@ -90,7 +90,7 @@ int is_match_in_place(char *current_word, char* pattern, int index, int word_ind
     if(check_if_squares(pattern)){
         squares_values = find_squares_values(pattern);
         if((pattern[index] == 0x5b) && (pattern[index-1] != 0x5c))
-            if((current_word[word_index] >= squares_values.min_val) && (current_word[word_index] <= squares_values.max_val) && (is_word_ends(current_word, index)))
+            if((current_word[word_index] >= squares_values.min_val) && (current_word[word_index] <= squares_values.max_val))
                 return 1;
     }
     if(pattern[index] == 0x27)
