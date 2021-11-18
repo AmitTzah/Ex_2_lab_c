@@ -47,7 +47,7 @@ int is_match_reg_exp_dot(char *current_word, char* pattern){
  int is_match_reg_exp_circles(char *current_word, char *pattern){
     char *temp1 = calloc(strlen(pattern), sizeof(char));
     char *temp2 = calloc(strlen(pattern), sizeof(char));
-    int i=2, j=0;
+    int i=2, j=0, k=1;
     temp1[j]= 0x27;
     temp2[j]= 0x27;
     j++;
@@ -56,30 +56,44 @@ int is_match_reg_exp_dot(char *current_word, char* pattern){
          i++;
          j++;
      }
-     temp1[j] = 0x27;
-     j=1;
      i++;
      while (pattern[i] != 0x29){
-         temp2[j] = pattern[i];
+         temp2[k] = pattern[i];
+         i++;
+         k++;
+     }
+     i++;
+     while(pattern[i] != '\0'){
+         temp1[j] = pattern[i];
+         temp2[k] = pattern[i];
          i++;
          j++;
+         k++;
      }
-     temp2[j] = 0x27;
-     i=1;
      j=1;
-     return (is_match_in_place(current_word, temp1,i) || is_match_in_place(current_word, temp2,j));
+     k=1;
+     return (is_match_in_place(current_word, temp1,j) || is_match_in_place(current_word, temp2,k));
 
  }
-
+int is_word_ends(char *word, int index){
+    return ((word[index] == '\0') || (word[index] == '\r') || (word[index] == '\n'));
+}
 
 
 int is_match_in_place(char *current_word, char* pattern, int index){
 
+    squares squares_values;
     char *blank =' ';
-    if(check_if_dot(pattern))
-        return is_match_reg_exp_dot(current_word, pattern);
     if(check_if_circles(pattern))
         return is_match_reg_exp_circles(current_word, pattern);
+    if(check_if_dot(pattern))
+        return is_match_reg_exp_dot(current_word, pattern);
+    if(check_if_squares(pattern)){
+        squares_values = find_squares_values(pattern);
+        if((pattern[index] == 0x5b) && (pattern[index-1] != 0x5c))
+            if((current_word[index-1] >= squares_values.min_val) && (current_word[index-1] <= squares_values.max_val) && (is_word_ends(current_word, index)))
+                return 1;
+    }
     if((pattern[index] == 0x27) && ((current_word[index+1] == blank) || (current_word[index+1]=='\0')))
         return 1;
     if(find_next_char(pattern, index) != current_word[index-1])
@@ -87,7 +101,6 @@ int is_match_in_place(char *current_word, char* pattern, int index){
     if(pattern[index] == 0x5c)
         index++;
     return is_match_in_place(current_word, pattern, index + 1);
-
 
 
 }
