@@ -48,12 +48,6 @@ void print_non_match_lines(FILE *fptr, char *phrase){
 
 }
 
-int should_dashes_be_printed_in_a_switch_case(switches* switches_status,int lines_counter){
-if(((switches_status->a).line_remains_to_print -1 == (switches_status->a).lines_to_print_case_A) && (lines_counter > 1)) {
-return 1;
-}
-return 0;
-}
 
 //public functions
 void print_According_to_switches(switches* switches_status, int is_match, int lines_counter , int* match_counter, int bytes_counter, char* current_line ){
@@ -63,7 +57,6 @@ void print_According_to_switches(switches* switches_status, int is_match, int li
 
         return;
     }
-    int should_dashes_be_printed=should_dashes_be_printed_in_a_switch_case(switches_status, lines_counter);
 
     if(switches_status->c) {
         return;
@@ -74,16 +67,11 @@ void print_According_to_switches(switches* switches_status, int is_match, int li
         return;
     }
 
-
-
-
-    if(should_dashes_be_printed) {
+    if((switches_status->a).should_print_dash) {
         printf("--\n");
+        (switches_status->a).should_print_dash = 0;
 
     }
-
-
-
 
     if(switches_status->n) {
         print_According_to_n( lines_counter);
@@ -93,13 +81,8 @@ void print_According_to_switches(switches* switches_status, int is_match, int li
         print_According_to_b( bytes_counter);
     }
 
-
-
-
-
     printer( current_line);
     print_Line_break_after_the_last_line_if_needed(current_line);
-
 
 }
 

@@ -51,6 +51,7 @@ switches check_switch_case(int argc, char **arguments_arr, int pattern_index) {
             switches_status.a.value = 1;
             switches_status.a.lines_to_print_case_A = atoi(arguments_arr[i+1]);
             switches_status.a.line_remains_to_print = 0;
+            switches_status.a.line_printed_since_match = 0;
             switches_status.no_switches=0;
 
         }

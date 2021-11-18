@@ -184,16 +184,19 @@ int is_match_in_line(switches* switches_status, int lines_counter , char* curren
     if((switches_status->a).value == 1){
 
         if(is_match==1) {
-            (switches_status->a).line_remains_to_print = (switches_status->a).lines_to_print_case_A + 1;
+            (switches_status->a).line_remains_to_print = (switches_status->a).lines_to_print_case_A +1;
+            if((switches_status->a).line_printed_since_match == (switches_status->a).lines_to_print_case_A)
+                (switches_status->a).should_print_dash = 1;
         }
 
         else{
-
             (switches_status->a).line_remains_to_print--;
-            if((switches_status->a).line_remains_to_print!=0) {
+            if((switches_status->a).line_remains_to_print>0) {
+                (switches_status->a).line_printed_since_match++;
                 is_match = 1;
                 *match_counter-=1;
             }
+
 
         }
     }
