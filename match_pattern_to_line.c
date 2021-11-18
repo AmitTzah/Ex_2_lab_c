@@ -9,7 +9,6 @@
 
 #include "identify_input_switches.h"
 #include "match_pattern_to_line.h"
-#include "regular_expressions.h"
 
 
 //private functions
@@ -76,7 +75,7 @@ int is_match_reg_exp_dot(char *current_word, char* pattern){
      return (is_match_in_place(current_word, temp1, j, i) || is_match_in_place(current_word, temp2, k, i));
 
  }
-int is_word_ends(char *word, int index){
+int is_word_ends(const char *word, int index){
     return ((word[index] == '\0') || (word[index] == '\r') || (word[index] == '\n'));
 }
 
@@ -84,7 +83,6 @@ int is_word_ends(char *word, int index){
 int is_match_in_place(char *current_word, char* pattern, int index, int word_index){
 
     squares squares_values;
-    char *blank =0x20;
     if(check_if_circles(pattern))
         return is_match_reg_exp_circles(current_word, pattern);
     if(check_if_dot(pattern))
@@ -123,27 +121,11 @@ char * str_to_lowercase( char *str)
     return str;
 }
 
-void ignore_letter_case(FILE *fptr, char *phrase){
-
-    char *current_line = NULL, *lowerCase_line;
-    size_t n;
-
-    while(getline(&current_line, &n, fptr) != EOF){
-        lowerCase_line = str_to_lowercase(current_line);
-        if (strstr(lowerCase_line, phrase) != NULL)
-            printf("%s", current_line);
-    }
-    free(current_line);
-    fclose(fptr);
-
-
-}
-
 
 //public functions
 
 
-int is_match_in_line(switches* switches_status, int lines_counter , char* current_line, char* pattern, int* match_counter){
+int is_match_in_line(switches* switches_status, char* current_line, char* pattern, int* match_counter){
 
     int is_match=0;
 

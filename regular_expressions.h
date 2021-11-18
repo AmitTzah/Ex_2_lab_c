@@ -9,8 +9,8 @@ typedef struct E_structs_array{
 }E_structs_array;
 
 typedef struct squares_regular_expression{
-    char *min_val;
-    char *max_val;
+    char min_val;
+    char max_val;
 }squares;
 
 char find_next_char(char *pattern, int index);
