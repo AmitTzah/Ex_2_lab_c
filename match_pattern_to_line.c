@@ -72,7 +72,8 @@ int is_match_reg_exp_dot(char *current_word, char* pattern){
      }
      j=1;
      k=1;
-     return (is_match_in_place(current_word, temp1,j) || is_match_in_place(current_word, temp2,k));
+     i=0;
+     return (is_match_in_place(current_word, temp1, j, i) || is_match_in_place(current_word, temp2, k, i));
 
  }
 int is_word_ends(char *word, int index){
@@ -80,10 +81,10 @@ int is_word_ends(char *word, int index){
 }
 
 
-int is_match_in_place(char *current_word, char* pattern, int index){
+int is_match_in_place(char *current_word, char* pattern, int index, int word_index){
 
     squares squares_values;
-    char *blank =' ';
+    char *blank =0x20;
     if(check_if_circles(pattern))
         return is_match_reg_exp_circles(current_word, pattern);
     if(check_if_dot(pattern))
@@ -91,16 +92,21 @@ int is_match_in_place(char *current_word, char* pattern, int index){
     if(check_if_squares(pattern)){
         squares_values = find_squares_values(pattern);
         if((pattern[index] == 0x5b) && (pattern[index-1] != 0x5c))
-            if((current_word[index-1] >= squares_values.min_val) && (current_word[index-1] <= squares_values.max_val) && (is_word_ends(current_word, index)))
+            if((current_word[word_index] >= squares_values.min_val) && (current_word[word_index] <= squares_values.max_val) && (is_word_ends(current_word, index)))
                 return 1;
     }
-    if((pattern[index] == 0x27) && ((current_word[index+1] == blank) || (current_word[index+1]=='\0')))
+    if(pattern[index] == 0x27)
         return 1;
-    if(find_next_char(pattern, index) != current_word[index-1])
+    if(is_word_ends(current_word, word_index))
         return 0;
+    if(find_next_char(pattern, index) != current_word[word_index]) {
+        index = 1;
+        return is_match_in_place(current_word, pattern, index, word_index+1);
+    }
+
     if(pattern[index] == 0x5c)
         index++;
-    return is_match_in_place(current_word, pattern, index + 1);
+    return is_match_in_place(current_word, pattern, index + 1, word_index + 1);
 
 
 }
@@ -153,12 +159,12 @@ int is_match_in_line(switches* switches_status, int lines_counter , char* curren
 
 
     if((switches_status->e).value == 1){
-        int index_initiate = 1, match_found = 0;
+        int index_initiate = 1, match_found = 0, word_index =0;
         char *blank = " ", *current_word;
         current_word= calloc((strlen(current_line))+1, sizeof(char));
         current_word = strtok(current_line, blank);
         while(current_word != NULL) {
-            if(is_match_in_place(current_word, pattern, index_initiate)) {
+            if(is_match_in_place(current_word, pattern, index_initiate, word_index)) {
                 is_match=1;
             }
             current_word = strtok(NULL, blank);
