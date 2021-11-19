@@ -122,6 +122,53 @@ char * str_to_lowercase( char *str)
 }
 
 
+void match_in_case_i( char* current_line, char* pattern){
+    str_to_lowercase(pattern);
+    str_to_lowercase(current_line);
+}
+
+void match_in_case_e(char* current_line,char* pattern, int* is_match){
+
+    int index_initiate = 1, word_index =0;
+    char *blank = " ", *current_word;
+    current_word = strtok(current_line, blank);
+    while(current_word != NULL) {
+        if(is_match_in_place(current_word, pattern, index_initiate, word_index)) {
+            *is_match=1;
+        }
+        current_word = strtok(NULL, blank);
+
+    }
+}
+void match_in_case_x(char* current_line,char* pattern, int* is_match) {
+    if (!strcmp(current_line, pattern))
+        *is_match = 1;
+    else
+        *is_match = 0;
+
+
+}
+
+void match_in_case_A(int* is_match,switches* switches_status, int* match_counter){
+    if(*is_match==1) {
+        (switches_status->a).line_remains_to_print = (switches_status->a).lines_to_print_case_A +1;
+        if((switches_status->a).line_printed_since_match == (switches_status->a).lines_to_print_case_A)
+            (switches_status->a).should_print_dash = 1;
+    }
+
+    else{
+        (switches_status->a).line_remains_to_print--;
+        if((switches_status->a).line_remains_to_print>0) {
+            (switches_status->a).line_printed_since_match++;
+            *is_match = 1;
+            *match_counter-=1;
+        }
+
+
+    }
+
+}
+
 //public functions
 
 
@@ -135,31 +182,18 @@ int is_match_in_line(switches* switches_status, char* current_line, char* patter
     }
     //this if statement should stay on top of all the rest of the cases.
     if(switches_status->i==1) {
-        str_to_lowercase(pattern);
-        str_to_lowercase(current_line);
+        match_in_case_i( current_line, pattern);
     }
 
 
     if((switches_status->e).value == 1){
-        int index_initiate = 1, match_found = 0, word_index =0;
-        char *blank = " ", *current_word;
-        current_word = strtok(current_line, blank);
-        while(current_word != NULL) {
-            if(is_match_in_place(current_word, pattern, index_initiate, word_index)) {
-                is_match=1;
-            }
-            current_word = strtok(NULL, blank);
+         match_in_case_e(current_line,pattern,&is_match);
 
-        }
     }
 
 
-
     if(switches_status->x==1){
-        if(!strcmp(current_line,pattern))
-            is_match=1;
-        else
-            is_match=0;
+        match_in_case_x(current_line,pattern, &is_match);
     }
 
     if(strstr(current_line, pattern) != NULL)
@@ -169,23 +203,7 @@ int is_match_in_line(switches* switches_status, char* current_line, char* patter
     flip_is_match(&is_match,switches_status->v);
 
     if((switches_status->a).value == 1){
-
-        if(is_match==1) {
-            (switches_status->a).line_remains_to_print = (switches_status->a).lines_to_print_case_A +1;
-            if((switches_status->a).line_printed_since_match == (switches_status->a).lines_to_print_case_A)
-                (switches_status->a).should_print_dash = 1;
-        }
-
-        else{
-            (switches_status->a).line_remains_to_print--;
-            if((switches_status->a).line_remains_to_print>0) {
-                (switches_status->a).line_printed_since_match++;
-                is_match = 1;
-                *match_counter-=1;
-            }
-
-
-        }
+        match_in_case_A(&is_match,switches_status,match_counter);
     }
     if(is_match){
         *match_counter+=1;

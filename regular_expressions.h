@@ -3,14 +3,14 @@
 
 
 
-typedef struct normal_tav{
-    char tav;
+typedef struct point{
 
-}normal_tav;
+
+}point;
 
 typedef struct round_brackets{
-    char min_val;
-    char max_val;
+    char* str1;
+    char* str2;
 }round_brackets;
 
 typedef struct square_brackets{
