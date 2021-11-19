@@ -17,8 +17,8 @@ int main(int argc, char *argv[]) {
 
 
 
-    int lines_counter = 0, is_match=0, bytes_counter = 0, match_counter = 0;
-
+    int lines_counter = 0, is_match, match_counter = 0;
+    size_t bytes_counter=0;
     find_index_of_pattern_and_file_arguments(argc, argv,&pattern_file_indexes);
 
     switches switches_status;

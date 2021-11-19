@@ -24,9 +24,9 @@ void print_According_to_n( int line_counter){
 
         printf("%d:", line_counter);
 }
-void print_According_to_b( int bytes_counter){
+void print_According_to_b(size_t bytes_counter){
 
-        printf("%d:", bytes_counter);
+        printf("%zu:", bytes_counter);
 }
 void printer( char *line){
 
@@ -50,7 +50,7 @@ void print_non_match_lines(FILE *fptr, char *phrase){
 
 
 //public functions
-void print_According_to_switches(switches* switches_status, int is_match, int lines_counter , int* match_counter, int bytes_counter, char* current_line ){
+void print_According_to_switches(switches* switches_status, int is_match, int lines_counter , int* match_counter, size_t bytes_counter, char* current_line ){
 
     //check if we actually need to print something
     if(is_match==0){
