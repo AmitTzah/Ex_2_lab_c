@@ -5,7 +5,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include "identify_input_switches.h"
+#include "identify_and_parse_input.h"
 #include "print_outputs.h"
 
 

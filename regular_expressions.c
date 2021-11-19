@@ -1,7 +1,7 @@
 #include "regular_expressions.h"
 
 
-//private functions:
+//public functions:
 
 
 char find_next_char(char *pattern, int index){

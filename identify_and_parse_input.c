@@ -2,7 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include "identify_input_switches.h"
+#include "identify_and_parse_input.h"
 
 //private functions
 
@@ -10,7 +10,7 @@
 
 //public functions.
 
-switches check_switch_case(int argc, char **arguments_arr, int pattern_index) {
+switches check_switch_case(int argc, char **arguments_arr, size_t pattern_index) {
     int i;
     switches switches_status={0};
 
@@ -65,23 +65,9 @@ switches check_switch_case(int argc, char **arguments_arr, int pattern_index) {
     }
     return switches_status;
 }
-int find_index_of_pattern_argument(int argc, char **arguments_arr){
 
-    int i;
-    for (i = 1; i < argc; i++) {
-        if(arguments_arr[i][1] == 'A') {
-            i += 1;
-            continue;
-        }
-        if(arguments_arr[i][0]!='-'){
-            return i;
-        }
-    }
 
-return 0;
-}
-
-void open_file_or_stdin(FILE** fptr, char **arguments_arr,int is_stdin_, int pattern_index){
+void open_file_or_stdin(FILE** fptr, char **arguments_arr,int is_stdin_, pattern_file_indexes pattern_file_indexes){
 
     if (is_stdin_)
     {
@@ -94,7 +80,7 @@ void open_file_or_stdin(FILE** fptr, char **arguments_arr,int is_stdin_, int pat
     }
     else{
 
-         *fptr= fopen(arguments_arr[pattern_index+1], "r");
+         *fptr= fopen(arguments_arr[pattern_file_indexes.file_index_if_given], "r");
 
         if (*fptr ==NULL){
             printf("failed to open file!\n");
@@ -119,9 +105,9 @@ ssize_t read_input_line(char ** current_line, size_t* n,FILE* fptr, int is_stdin
 
 }
 
-int is_stdin(int argc, char **arguments_arr, int pattern_index){
+int is_stdin(pattern_file_indexes pattern_file_indexes){
 
-    if((pattern_index+1)==argc || (arguments_arr[pattern_index+1][0]=='-')){
+    if(pattern_file_indexes.file_index_if_given==0){
 
         return 1;
     }
@@ -135,6 +121,34 @@ void close_file_if_needed(FILE *fptr, int is_stdin_){
     if(is_stdin_==0){
 
         fclose(fptr);
+    }
+
+}
+
+void find_index_of_pattern_and_file_arguments(int argc, char **arguments_arr,pattern_file_indexes* indexes){
+
+    int i;
+    for (i = 1; i < argc; i++) {
+        if(arguments_arr[i][1] == 'A') {
+            i += 1;
+            continue;
+        }
+        if(arguments_arr[i][0]!='-'){
+            indexes->pattern_index= i;
+            break;
+        }
+    }
+    i++;
+    while(i<argc){
+
+        if(arguments_arr[i][1] == 'A') {
+            i += 1;
+            continue;
+        }
+        if(arguments_arr[i][0]!='-'){
+            indexes->file_index_if_given=i;
+        }
+        i++;
     }
 
 }

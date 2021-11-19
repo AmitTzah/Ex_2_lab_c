@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <ctype.h>
 
-#include "identify_input_switches.h"
+#include "identify_and_parse_input.h"
 #include "match_pattern_to_line.h"
 
 
@@ -143,7 +143,6 @@ int is_match_in_line(switches* switches_status, char* current_line, char* patter
     if((switches_status->e).value == 1){
         int index_initiate = 1, match_found = 0, word_index =0;
         char *blank = " ", *current_word;
-        current_word= calloc((strlen(current_line))+1, sizeof(char));
         current_word = strtok(current_line, blank);
         while(current_word != NULL) {
             if(is_match_in_place(current_word, pattern, index_initiate, word_index)) {

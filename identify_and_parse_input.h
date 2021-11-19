@@ -5,6 +5,12 @@
 #include <stdio.h>
 #include "regular_expressions.h"
 
+typedef struct pattern_file_indexes{
+   size_t pattern_index;
+   size_t file_index_if_given;
+
+}pattern_file_indexes;
+
 typedef struct case_A{
     int value;
     int lines_to_print_case_A;
@@ -33,15 +39,15 @@ typedef struct switches_flags {
 
 
 
-switches check_switch_case(int argc, char **arguments_arr, int pattern_index);
+switches check_switch_case(int argc, char **arguments_arr, size_t pattern_index);
 
-int find_index_of_pattern_argument(int argc, char **arguments_arr);
+void find_index_of_pattern_and_file_arguments(int argc, char **arguments_arr,pattern_file_indexes* indexes);
 
 ssize_t read_input_line(char ** current_line, size_t* n,FILE* fptr, int is_stdin_);
 
-void open_file_or_stdin(FILE** fptr, char **arguments_arr,int is_stdin_, int pattern_index);
+void open_file_or_stdin(FILE** fptr, char **arguments_arr,int is_stdin_, pattern_file_indexes pattern_file_indexes);
 
-int is_stdin(int argc, char **arguments_arr, int pattern_index);
+int is_stdin(pattern_file_indexes pattern_file_indexes);
 
 void close_file_if_needed(FILE *fptr, int is_stdin_);
 #endif
