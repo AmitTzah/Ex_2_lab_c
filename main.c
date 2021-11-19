@@ -24,10 +24,11 @@ int main(int argc, char *argv[]) {
     FILE *fptr=NULL;
     open_file_or_stdin(&fptr,argv,is_stdin_, pattern_file_indexes);
 
-    //get temp_pattern_if_regular_exprestion_return_array
     char *temp_pattern=NULL;
     regular_exp_tav* array_of_reg_exp_tav=NULL;
-    get_temp_pattern_parse_reg_exp(argc,argv,&pattern_file_indexes,switches_status,&temp_pattern,array_of_reg_exp_tav);
+    size_t size_of_array_of_reg_exp_tav=0;
+    get_temp_pattern(argc, argv, &pattern_file_indexes, &temp_pattern);
+    parse_reg_exp(switches_status,temp_pattern,&array_of_reg_exp_tav,&size_of_array_of_reg_exp_tav);
 
     char *current_line = NULL;
     char* temp_current_line=NULL;
@@ -37,7 +38,7 @@ int main(int argc, char *argv[]) {
         temp_current_line= calloc((strlen(current_line))+1, sizeof(char));
         strcpy(temp_current_line,current_line);
 
-        is_match = is_match_in_line(p_switches_status, temp_current_line,temp_pattern,&match_counter);
+        is_match = is_match_in_line(p_switches_status, temp_current_line,temp_pattern,&match_counter, array_of_reg_exp_tav,size_of_array_of_reg_exp_tav);
 
         print_According_to_switches(p_switches_status,is_match,lines_counter,&match_counter, bytes_counter, current_line);
 
@@ -50,6 +51,7 @@ int main(int argc, char *argv[]) {
 
     free(current_line);
     free(temp_pattern);
+    free(array_of_reg_exp_tav);
 
     close_file_if_needed(fptr, is_stdin_);
 
