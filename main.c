@@ -9,34 +9,27 @@
 
 int main(int argc, char *argv[]) {
 
-    char *current_line = NULL;
-    char* temp_current_line=NULL;
-
     pattern_file_indexes pattern_file_indexes={0};
-    size_t n;
-
-
-
-    int lines_counter = 0, is_match, match_counter = 0;
-    size_t bytes_counter=0;
     find_index_of_pattern_and_file_arguments(argc, argv,&pattern_file_indexes);
 
-    switches switches_status;
+    size_t n;
+    size_t bytes_counter=0;
+    int lines_counter = 0, is_match, match_counter = 0;
 
+    switches switches_status;
     switches_status = check_switch_case(argc, argv,pattern_file_indexes.pattern_index);
     switches* p_switches_status= &switches_status;
 
-
-    char *temp_pattern= calloc((strlen(argv[pattern_file_indexes.pattern_index]))+1,sizeof(char));
-
     int is_stdin_=is_stdin(pattern_file_indexes);
-
     FILE *fptr=NULL;
-
     open_file_or_stdin(&fptr,argv,is_stdin_, pattern_file_indexes);
 
+    //get temp_pattern_if_regular_exprestion_return_array
+    char *temp_pattern= calloc((strlen(argv[pattern_file_indexes.pattern_index]))+1,sizeof(char));
     strcpy(temp_pattern,argv[pattern_file_indexes.pattern_index]);
 
+    char *current_line = NULL;
+    char* temp_current_line=NULL;
 
     while(read_input_line(&current_line, &n,fptr, is_stdin_) != EOF){
         lines_counter ++;
@@ -45,11 +38,10 @@ int main(int argc, char *argv[]) {
 
         is_match = is_match_in_line(p_switches_status, temp_current_line,temp_pattern,&match_counter);
 
-
         print_According_to_switches(p_switches_status,is_match,lines_counter,&match_counter, bytes_counter, current_line);
 
-
         bytes_counter += strlen(temp_current_line);
+
         free(temp_current_line);
     }
 

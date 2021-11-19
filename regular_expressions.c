@@ -49,9 +49,9 @@ int check_if_squares(char *pattern){
     return (left_side)  && (middle) && (right_side);
 }
 
-squares find_squares_values(char *pattern){
+square_brackets find_squares_values(char *pattern){
     int i=1;
-    squares square_values;
+    square_brackets square_values;
     while (1){
         if(pattern[i] == 0x5b)
             square_values.min_val = pattern[i+1];

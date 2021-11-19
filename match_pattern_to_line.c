@@ -82,7 +82,7 @@ int is_word_ends(const char *word, int index){
 
 int is_match_in_place(char *current_word, char* pattern, int index, int word_index){
 
-    squares squares_values;
+    square_brackets squares_values;
     if(check_if_circles(pattern))
         return is_match_reg_exp_circles(current_word, pattern);
     if(check_if_dot(pattern))

@@ -1,7 +1,7 @@
 #ifndef CASES_H
 #define CASES_H
 
-#define NUMBER_OF_SWITCHES 8
+
 #include <stdio.h>
 #include "regular_expressions.h"
 
@@ -22,7 +22,7 @@ typedef struct case_A{
 typedef struct case_E{
     int value;
     char* pattern;
-    E_structs_array E_array;
+
 }case_E;
 
 typedef struct switches_flags {
@@ -36,7 +36,6 @@ typedef struct switches_flags {
     case_E e;
     int no_switches;
 }switches;
-
 
 
 switches check_switch_case(int argc, char **arguments_arr, size_t pattern_index);

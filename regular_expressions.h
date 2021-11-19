@@ -3,20 +3,25 @@
 
 
 
-typedef struct E_structs_array{
+typedef struct normal_tav{
     char tav;
 
-}E_structs_array;
+}normal_tav;
 
-typedef struct squares_regular_expression{
+typedef struct round_brackets{
     char min_val;
     char max_val;
-}squares;
+}round_brackets;
+
+typedef struct square_brackets{
+    char min_val;
+    char max_val;
+}square_brackets;
 
 char find_next_char(char *pattern, int index);
 int check_if_dot(char* pattern);
 int check_if_circles(char* pattern);
 int check_if_squares(char *pattern);
-squares find_squares_values(char *pattern);
+square_brackets find_squares_values(char *pattern);
 
 #endif
