@@ -83,11 +83,11 @@ int is_word_ends(const char *word, int index){
 int is_match_in_place(char *current_word, char* pattern, int index, int word_index){
 
     square_brackets squares_values;
-    if(check_if_circles(pattern))
+    if(check_if_circles_reg_exp_in_given_pattern(pattern))
         return is_match_reg_exp_circles(current_word, pattern);
-    if(check_if_dot(pattern))
+    if(check_if_dot_reg_exp_in_given_pattern(pattern))
         return is_match_reg_exp_dot(current_word, pattern);
-    if(check_if_squares(pattern)){
+    if(check_if_squares_reg_exp_in_given_pattern(pattern)){
         squares_values = find_squares_values(pattern);
         if((pattern[index] == 0x5b) && (pattern[index-1] != 0x5c))
             if((current_word[word_index] >= squares_values.min_val) && (current_word[word_index] <= squares_values.max_val))

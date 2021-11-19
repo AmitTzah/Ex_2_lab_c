@@ -25,8 +25,9 @@ int main(int argc, char *argv[]) {
     open_file_or_stdin(&fptr,argv,is_stdin_, pattern_file_indexes);
 
     //get temp_pattern_if_regular_exprestion_return_array
-    char *temp_pattern= calloc((strlen(argv[pattern_file_indexes.pattern_index]))+1,sizeof(char));
-    strcpy(temp_pattern,argv[pattern_file_indexes.pattern_index]);
+    char *temp_pattern=NULL;
+    regular_exp_tav* array_of_reg_exp_tav=NULL;
+    get_temp_pattern_parse_reg_exp(argc,argv,&pattern_file_indexes,switches_status,&temp_pattern,array_of_reg_exp_tav);
 
     char *current_line = NULL;
     char* temp_current_line=NULL;

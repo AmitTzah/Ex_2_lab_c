@@ -11,31 +11,31 @@ char find_next_char(char *pattern, int index){
         return pattern[index];
 }
 
-int check_if_dot(char* pattern){
+int check_if_dot_reg_exp_in_given_pattern(char* pattern){
     int i=1;
     while(pattern[i] != '\0') {
-        if ((pattern[i] == 0x2e) && (pattern[i - 1] != 0x5c))
+        if ((pattern[i] == 0x2e) && (pattern[i - 1] != 0x5c))// Ascii for '.' is 2e
             return 1;
         i++;
     }
     return 0;
 }
 
-int check_if_circles(char* pattern){
+int check_if_circles_reg_exp_in_given_pattern(char* pattern){
     int i=1, left_side = 0, right_side = 0, separator = 0;
     while (pattern[i] != '\0'){
-        if((pattern[i] == 0x28) && (pattern[i - 1] != 0x5c))
+        if((pattern[i] == 0x28) && (pattern[i - 1] != 0x5c)) //0x28= '('
             left_side = 1;
-        if((pattern[i] == 0x7c) && (left_side) && (pattern[i - 1] != 0x5c))
+        if((pattern[i] == 0x7c) && (left_side) && (pattern[i - 1] != 0x5c)) //0x7c= '|'
             separator = 1;
-        if((pattern[i] == 0x29) &&  (separator) && (pattern[i - 1] != 0x5c))
+        if((pattern[i] == 0x29) &&  (separator) && (pattern[i - 1] != 0x5c)) //0x29= ')'
             right_side = 1;
         i++;
     }
     return ((left_side) && (right_side) && (separator));
 }
 
-int check_if_squares(char *pattern){
+int check_if_squares_reg_exp_in_given_pattern(char *pattern){
     int i=1, left_side = 0, right_side = 0, middle = 0;
     while (pattern[i] != '\0'){
         if((pattern[i] == 0x5b) && (pattern[i - 1] != 0x5c))

@@ -3,6 +3,7 @@
 #include <stdlib.h>
 
 #include "identify_and_parse_input.h"
+#include "regular_expressions.h"
 
 //private functions
 
@@ -149,6 +150,21 @@ void find_index_of_pattern_and_file_arguments(int argc, char **arguments_arr,pat
             indexes->file_index_if_given=i;
         }
         i++;
+    }
+
+}
+
+void get_temp_pattern_parse_reg_exp(int argc, char **arguments_arr,pattern_file_indexes* indexes, switches switches_status,char **temp_pattern,regular_exp_tav* array_of_reg_exp_tav){
+
+    if ((switches_status.e.value)==1){
+
+
+    }
+
+    else{
+
+        *temp_pattern= calloc((strlen(arguments_arr[indexes->pattern_index]))+1,sizeof(char));
+        strcpy(*temp_pattern,arguments_arr[indexes->pattern_index]);
     }
 
 }

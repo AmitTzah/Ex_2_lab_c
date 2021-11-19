@@ -49,4 +49,8 @@ void open_file_or_stdin(FILE** fptr, char **arguments_arr,int is_stdin_, pattern
 int is_stdin(pattern_file_indexes pattern_file_indexes);
 
 void close_file_if_needed(FILE *fptr, int is_stdin_);
+
+void get_temp_pattern_parse_reg_exp(int argc, char **arguments_arr,pattern_file_indexes* indexes, switches switches_status,char **temp_pattern,regular_exp_tav* array_of_reg_exp_tav);
+
+
 #endif
