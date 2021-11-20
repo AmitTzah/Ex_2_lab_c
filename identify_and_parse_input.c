@@ -24,7 +24,7 @@ size_t num_of_reg_exps_in_pattern(char* temp_pattern){
             i++;
         }
 
-        num_of_reg_exps_in_pattern++;
+        num_of_reg_exps_in_pattern ++;
     }
     // check for [x-y]
     if (temp_pattern[i] == 0x5b){
@@ -236,6 +236,8 @@ void parse_reg_exp(switches switches_status,char* temp_pattern,regular_exp_tav**
                    size_t* size_of_array_of_reg_exp_tav){
     int i=0;
     int j=0;
+    int k=0;
+    int left=0, right=0, middle=0;
     *size_of_array_of_reg_exp_tav =num_of_reg_exps_in_pattern(temp_pattern);
     *array_of_reg_exp_tav=calloc((*size_of_array_of_reg_exp_tav),sizeof(struct regular_exp_tav));
 
@@ -246,13 +248,12 @@ void parse_reg_exp(switches switches_status,char* temp_pattern,regular_exp_tav**
         // Write (str|str) and [x-y] cases.
 
         // put (str|str) into array
-        if (temp_pattern[i] == 0x28){ //0x28= '(' ,Ascii for '\' is 5c
-            i++;
-            while(temp_pattern[i] != 0x29)
-            {
-                i++;
-            }
-
+        set_arr_of_reg_exp_tav_round_bracket(array_of_reg_exp_tav, temp_pattern, j);
+        if((((*array_of_reg_exp_tav)[j]).type_of_regular_exp).is_round_bracket) {
+            i += strlen((((*array_of_reg_exp_tav)[j]).regular_exp).round_brackets_tav.str1);
+            i += strlen((((*array_of_reg_exp_tav)[j]).regular_exp).round_brackets_tav.str2);
+            i += 3;
+            j++;
         }
             // put [x-y] into array
         else if (temp_pattern[i] == 0x5b){ //0x28= '(' ,Ascii for '\' is 5c
@@ -265,8 +266,7 @@ void parse_reg_exp(switches switches_status,char* temp_pattern,regular_exp_tav**
         }
 
             //put point into array
-        else if ((temp_pattern[i] == 0x2e) && (temp_pattern[i - 1] != 0x5c)) { // Ascii for '.' is 2e
-            ((*array_of_reg_exp_tav)[j]).type_of_regular_exp=is_point;
+        else if (temp_pattern[i] == 0x2e) { // Ascii for '.' is 2e
             (((*array_of_reg_exp_tav)[j]).regular_exp).point_tav.initialize_point=1;
             j++;
 
@@ -279,7 +279,6 @@ void parse_reg_exp(switches switches_status,char* temp_pattern,regular_exp_tav**
 
             //put normal_tav into array
         else{
-            ((*array_of_reg_exp_tav)[j]).type_of_regular_exp=is_normal_tav;
             (((*array_of_reg_exp_tav)[j]).regular_exp).normal_tav=temp_pattern[i];
             j++;
 
@@ -288,13 +287,22 @@ void parse_reg_exp(switches switches_status,char* temp_pattern,regular_exp_tav**
         for (i = 1; i < strlen(temp_pattern); i++) {
 
             // put (str|str) into array
-            if ((temp_pattern[i] == 0x28) && (temp_pattern[i - 1] != 0x5c)){ //0x28= '(' ,Ascii for '\' is 5c
+            if((temp_pattern[i] == 0x28) && (temp_pattern[i-1] != 0x5c)){
+                (((*array_of_reg_exp_tav)[j]).type_of_regular_exp).is_round_bracket = 1;
+                (((*array_of_reg_exp_tav)[j]).regular_exp).round_brackets_tav.str1 = (char *)malloc(strlen(temp_pattern) );
+                (((*array_of_reg_exp_tav)[j]).regular_exp).round_brackets_tav.str2 = (char *)malloc(strlen(temp_pattern) );
                 i++;
-                while(temp_pattern[i] != 0x29 && (temp_pattern[i - 1] != 0x5c))
-                {
+                while ((temp_pattern[i] != 0x7c) && (temp_pattern[i-1] != 0x5c)){
+                    (((*array_of_reg_exp_tav)[j]).regular_exp).round_brackets_tav.str1[i-1] = temp_pattern[i];
                     i++;
                 }
-
+                i++;
+                while ((temp_pattern[i] != 0x29) && (temp_pattern[i-1] != 0x5c)) {
+                    (((*array_of_reg_exp_tav)[j]).regular_exp).round_brackets_tav.str2[k] = temp_pattern[i];
+                    i++;
+                    k++;
+                }
+                j++;
             }
                 // put [x-y] into array
             else if ((temp_pattern[i] == 0x5b) && (temp_pattern[i - 1] != 0x5c)){ //0x28= '(' ,Ascii for '\' is 5c
@@ -308,7 +316,6 @@ void parse_reg_exp(switches switches_status,char* temp_pattern,regular_exp_tav**
 
                 //put point into array
             else if ((temp_pattern[i] == 0x2e) && (temp_pattern[i - 1] != 0x5c)) { // Ascii for '.' is 2e
-                ((*array_of_reg_exp_tav)[j]).type_of_regular_exp=is_point;
                 (((*array_of_reg_exp_tav)[j]).regular_exp).point_tav.initialize_point=1;
                 j++;
 
@@ -321,7 +328,6 @@ void parse_reg_exp(switches switches_status,char* temp_pattern,regular_exp_tav**
 
                 //put normal_tav into array
             else{
-                ((*array_of_reg_exp_tav)[j]).type_of_regular_exp=is_normal_tav;
                 (((*array_of_reg_exp_tav)[j]).regular_exp).normal_tav=temp_pattern[i];
                 j++;
 

@@ -1,11 +1,11 @@
 #ifndef REGULAR_EXPRESSION_H
 #define REGULAR_EXPRESSION_H
 
-typedef enum type_of_regular_exp{
-    is_normal_tav = 0,
-    is_point,
-    is_round_brackets,
-    is_square_brackets
+typedef struct type_of_regular_exp{
+    int is_normal_tav;
+    int is_point;
+    int is_round_bracket;
+    int is_square_brackets;
 } type_of_regular_exp;
 
 typedef struct point{
@@ -43,5 +43,6 @@ int check_if_dot_reg_exp_in_given_pattern(char* pattern);
 int check_if_circles_reg_exp_in_given_pattern(char* pattern);
 int check_if_squares_reg_exp_in_given_pattern(char *pattern);
 square_brackets find_squares_values(char *pattern);
+void set_arr_of_reg_exp_tav_round_bracket(regular_exp_tav** array_of_reg_exp_tav, char *pattern,int index);
 
 #endif

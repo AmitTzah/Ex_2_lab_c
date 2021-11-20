@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include "regular_expressions.h"
 
+
 typedef struct pattern_file_indexes{
    size_t pattern_index;
    size_t file_index_if_given;

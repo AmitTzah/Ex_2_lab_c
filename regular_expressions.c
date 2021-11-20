@@ -1,4 +1,6 @@
 #include "regular_expressions.h"
+#include <string.h>
+#include <stdlib.h>
 
 
 //public functions:
@@ -11,6 +13,36 @@ char find_next_char(char *pattern, int index){
         return pattern[index];
 }
 
+void set_arr_of_reg_exp_tav_round_bracket(regular_exp_tav** array_of_reg_exp_tav, char *pattern,int index){
+    int i=0, k=0;
+
+    if((pattern[i] == 0x28) && (pattern[i-1] != 0x5c)){
+        (((*array_of_reg_exp_tav)[index]).regular_exp).round_brackets_tav.str1 = (char *)malloc(strlen(pattern));
+        (((*array_of_reg_exp_tav)[index]).regular_exp).round_brackets_tav.str2 = (char *)malloc(strlen(pattern));
+        (((*array_of_reg_exp_tav)[index]).type_of_regular_exp).is_round_bracket = 1;
+        i++;
+        while ((pattern[i] != 0x7c) && (pattern[i-1] != 0x5c)){
+            (((*array_of_reg_exp_tav)[index]).regular_exp).round_brackets_tav.str1[i-1] = pattern[i];
+            i++;
+        }
+        (((*array_of_reg_exp_tav)[index]).regular_exp).round_brackets_tav.str1[i-1] = '\0';
+        i++;
+        while ((pattern[i] != 0x29) && (pattern[i-1] != 0x5c)) {
+            (((*array_of_reg_exp_tav)[index]).regular_exp).round_brackets_tav.str2[k] = pattern[i];
+            i++;
+            k++;
+        }
+        (((*array_of_reg_exp_tav)[index]).regular_exp).round_brackets_tav.str2[k] = '\0';
+    }
+}
+
+
+
+
+
+
+
+
 int check_if_dot_reg_exp_in_given_pattern(char* pattern){
     int i=1;
     while(pattern[i] != '\0') {
@@ -21,19 +53,6 @@ int check_if_dot_reg_exp_in_given_pattern(char* pattern){
     return 0;
 }
 
-int check_if_circles_reg_exp_in_given_pattern(char* pattern){
-    int i=1, left_side = 0, right_side = 0, separator = 0;
-    while (pattern[i] != '\0'){
-        if((pattern[i] == 0x28) && (pattern[i - 1] != 0x5c)) //0x28= '('
-            left_side = 1;
-        if((pattern[i] == 0x7c) && (left_side) && (pattern[i - 1] != 0x5c)) //0x7c= '|'
-            separator = 1;
-        if((pattern[i] == 0x29) &&  (separator) && (pattern[i - 1] != 0x5c)) //0x29= ')'
-            right_side = 1;
-        i++;
-    }
-    return ((left_side) && (right_side) && (separator));
-}
 
 int check_if_squares_reg_exp_in_given_pattern(char *pattern){
     int i=1, left_side = 0, right_side = 0, middle = 0;
