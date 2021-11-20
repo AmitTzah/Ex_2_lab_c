@@ -237,7 +237,7 @@ void parse_reg_exp(switches switches_status,char* temp_pattern,regular_exp_tav**
     int i=0;
     int j=0;
     *size_of_array_of_reg_exp_tav =num_of_reg_exps_in_pattern(temp_pattern);
-    *array_of_reg_exp_tav=calloc((*size_of_array_of_reg_exp_tav)+1,sizeof(struct regular_exp_tav));
+    *array_of_reg_exp_tav=calloc((*size_of_array_of_reg_exp_tav),sizeof(struct regular_exp_tav));
 
     if ((switches_status.e.value)==1){
 
