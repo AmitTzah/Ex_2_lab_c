@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 #include "identify_and_parse_input.h"
-#include "regular_expressions.h"
+
 
 
 //private functions
@@ -13,8 +13,38 @@
 
 size_t num_of_reg_exps_in_pattern(char* temp_pattern){
     size_t num_of_reg_exps_in_pattern=0;
-    int i;
-    for (i = 1; i < (strlen(temp_pattern))-1; i++) {
+    int i=0;
+    //treat i=0 case before the loop since we don't want to access [i-1]
+    //TODO break this code in functions to avoid code duplication
+
+    // check for (str|str)
+    if (temp_pattern[i] == 0x28){ //0x28= '(' ,Ascii for '\' is 5c
+        i++;
+        while(temp_pattern[i] != 0x29 )
+        {
+            i++;
+        }
+
+        num_of_reg_exps_in_pattern++;
+    }
+    // check for [x-y]
+    if (temp_pattern[i] == 0x5b){
+        i++;
+        while(temp_pattern[i] != 0x5d)
+        {
+            i++;
+        }
+
+        num_of_reg_exps_in_pattern++;
+    }
+    //check for  '\'
+    if(temp_pattern[i] == 0x5c){
+        i++;
+    }
+
+    num_of_reg_exps_in_pattern++;
+
+for (i = 1; i < strlen(temp_pattern); i++) {
 
         // check for (str|str)
         if ((temp_pattern[i] == 0x28) && (temp_pattern[i - 1] != 0x5c)){ //0x28= '(' ,Ascii for '\' is 5c
@@ -36,6 +66,7 @@ size_t num_of_reg_exps_in_pattern(char* temp_pattern){
 
             num_of_reg_exps_in_pattern++;
         }
+        //check for  '\'
         if(temp_pattern[i] == 0x5c){
             i++;
         }
@@ -203,12 +234,56 @@ void get_temp_pattern(int argc, char **arguments_arr,pattern_file_indexes* index
 }
 
 void parse_reg_exp(switches switches_status,char* temp_pattern,regular_exp_tav** array_of_reg_exp_tav,size_t* size_of_array_of_reg_exp_tav){
-    int i;
+    int i=0;
     int j=0;
     *size_of_array_of_reg_exp_tav =num_of_reg_exps_in_pattern(temp_pattern);
     *array_of_reg_exp_tav=calloc((*size_of_array_of_reg_exp_tav)+1,sizeof(struct regular_exp_tav));
 
     if ((switches_status.e.value)==1){
+
+        //treat i=0 case before the loop since we don't want to access [i-1]
+            //TODO break this code into functions to avoid code duplication
+            // Write (str|str) and [x-y] cases.
+
+        // put (str|str) into array
+        if (temp_pattern[i] == 0x28){ //0x28= '(' ,Ascii for '\' is 5c
+            i++;
+            while(temp_pattern[i] != 0x29)
+            {
+                i++;
+            }
+
+        }
+            // put [x-y] into array
+        else if (temp_pattern[i] == 0x5b){ //0x28= '(' ,Ascii for '\' is 5c
+            i++;
+            while(temp_pattern[i] != 0x5d)
+            {
+                i++;
+            }
+
+        }
+
+            //put point into array
+        else if ((temp_pattern[i] == 0x2e) && (temp_pattern[i - 1] != 0x5c)) { // Ascii for '.' is 2e
+            ((*array_of_reg_exp_tav)[j]).type_of_regular_exp=is_point;
+            (((*array_of_reg_exp_tav)[j]).regular_exp).point_tav.initialize_point=1;
+            j++;
+
+        }
+
+            //skip '\'
+        else if(temp_pattern[i] == 0x5c){
+
+        }
+
+            //put normal_tav into array
+        else{
+            ((*array_of_reg_exp_tav)[j]).type_of_regular_exp=is_normal_tav;
+            (((*array_of_reg_exp_tav)[j]).regular_exp).normal_tav=temp_pattern[i];
+            j++;
+
+        }
 
         for (i = 1; i < strlen(temp_pattern); i++) {
 
@@ -234,7 +309,7 @@ void parse_reg_exp(switches switches_status,char* temp_pattern,regular_exp_tav**
             //put point into array
             else if ((temp_pattern[i] == 0x2e) && (temp_pattern[i - 1] != 0x5c)) { // Ascii for '.' is 2e
                 ((*array_of_reg_exp_tav)[j]).type_of_regular_exp=is_point;
-                (((*array_of_reg_exp_tav)[j]).regular_exp).point_tav->initialize_point=1;
+                (((*array_of_reg_exp_tav)[j]).regular_exp).point_tav.initialize_point=1;
                 j++;
 
             }

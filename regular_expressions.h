@@ -9,7 +9,7 @@ typedef enum type_of_regular_exp{
 } type_of_regular_exp;
 
 typedef struct point{
-int initialize_point;
+int initialize_point; //set point to 1 to indicate that it's a point
 
 }point;
 
@@ -24,15 +24,15 @@ typedef struct square_brackets{
 }square_brackets;
 
 
-
-
 typedef union regular_exp {
     char normal_tav;
-    round_brackets* round_brackets_tav;
-    square_brackets* square_brackets_tav;
-    point * point_tav ;
+    round_brackets round_brackets_tav;
+    square_brackets square_brackets_tav;
+    point  point_tav ;
 }regular_exp;
 
+//a regular_exp_tav is (str1|str2) or 'char' or [x-y] or point.
+//type_of_regular_exp is used to indicate which field inside the union is 'on'.
 typedef struct regular_exp_tav{
     type_of_regular_exp type_of_regular_exp;
     regular_exp    regular_exp;
