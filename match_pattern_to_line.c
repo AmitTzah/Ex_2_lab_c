@@ -75,6 +75,17 @@ int is_match_in_place(char *current_line, regular_exp_tav* regular_exp_tav_array
         return is_match_in_place(current_line+1, regular_exp_tav_array,zero_index_of_pattern+1
                                  , size_of_array, is_match, swt, match_counter, pattern);
     }
+
+
+    if((regular_exp_tav_array[zero_index_of_pattern]).type_of_regular_exp.is_square_brackets == 1){
+        if((*current_line <= (regular_exp_tav_array[zero_index_of_pattern]).regular_exp.square_brackets_tav.max_val)
+        && (*current_line >= (regular_exp_tav_array[zero_index_of_pattern]).regular_exp.square_brackets_tav.min_val))
+            return 1;
+        else
+            return is_match_in_place(current_line+1,regular_exp_tav_array,
+                                     zero_index_of_pattern+1,size_of_array, is_match, swt, match_counter,
+                                     pattern);
+    }
     if((regular_exp_tav_array[zero_index_of_pattern]).type_of_regular_exp.is_round_bracket == 1){
         return is_match_round_brackets(current_line, regular_exp_tav_array, match_counter, regular_exp_tav_array,
                                        is_match, match_counter, pattern, zero_index_of_pattern);

@@ -13,32 +13,45 @@ char find_next_char(char *pattern, int index){
         return pattern[index];
 }
 
-void set_arr_of_reg_exp_tav_round_bracket(regular_exp_tav** array_of_reg_exp_tav, char *pattern,int index){
-    int i=0, k=0;
+void set_arr_of_reg_exp_tav_round_bracket(regular_exp_tav** array_of_reg_exp_tav, char *pattern,int arr_index, int i){
+    int k=0;
 
     if((pattern[i] == 0x28) && (pattern[i-1] != 0x5c)){
-        (((*array_of_reg_exp_tav)[index]).regular_exp).round_brackets_tav.str1 = (char *)malloc(strlen(pattern));
-        (((*array_of_reg_exp_tav)[index]).regular_exp).round_brackets_tav.str2 = (char *)malloc(strlen(pattern));
-        (((*array_of_reg_exp_tav)[index]).type_of_regular_exp).is_round_bracket = 1;
+        (((*array_of_reg_exp_tav)[arr_index]).regular_exp).round_brackets_tav.str1 = (char *)malloc(strlen(pattern));
+        (((*array_of_reg_exp_tav)[arr_index]).regular_exp).round_brackets_tav.str2 = (char *)malloc(strlen(pattern));
+        (((*array_of_reg_exp_tav)[arr_index]).type_of_regular_exp).is_round_bracket = 1;
         i++;
         while ((pattern[i] != 0x7c) && (pattern[i-1] != 0x5c)){
-            (((*array_of_reg_exp_tav)[index]).regular_exp).round_brackets_tav.str1[i-1] = pattern[i];
+            (((*array_of_reg_exp_tav)[arr_index]).regular_exp).round_brackets_tav.str1[i-1] = pattern[i];
             i++;
         }
-        (((*array_of_reg_exp_tav)[index]).regular_exp).round_brackets_tav.str1[i-1] = '\0';
+        (((*array_of_reg_exp_tav)[arr_index]).regular_exp).round_brackets_tav.str1[i-1] = '\0';
         i++;
         while ((pattern[i] != 0x29) && (pattern[i-1] != 0x5c)) {
-            (((*array_of_reg_exp_tav)[index]).regular_exp).round_brackets_tav.str2[k] = pattern[i];
+            (((*array_of_reg_exp_tav)[arr_index]).regular_exp).round_brackets_tav.str2[k] = pattern[i];
             i++;
             k++;
         }
-        (((*array_of_reg_exp_tav)[index]).regular_exp).round_brackets_tav.str2[k] = '\0';
+        (((*array_of_reg_exp_tav)[arr_index]).regular_exp).round_brackets_tav.str2[k] = '\0';
     }
 }
+void set_arr_of_reg_exp_tav_square_bracket(regular_exp_tav** array_of_reg_exp_tav, char *pattern, int arr_index,int  i){
 
 
-
-
+    if((pattern[i] == 0x5b) && (pattern[i-1] != 0x5c)){
+        (((*array_of_reg_exp_tav)[arr_index]).type_of_regular_exp).is_square_brackets = 1;
+        i++;
+        while ((pattern[i] != 0x2d) && (pattern[i-1] != 0x5c)){
+            (((*array_of_reg_exp_tav)[arr_index]).regular_exp).square_brackets_tav.min_val = pattern[i];
+            i++;
+        }
+        i++;
+        while ((pattern[i] != 0x5d) && (pattern[i-1] != 0x5c)) {
+            (((*array_of_reg_exp_tav)[arr_index]).regular_exp).square_brackets_tav.max_val = pattern[i];
+            i++;
+        }
+    }
+}
 
 
 
