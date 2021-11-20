@@ -44,7 +44,6 @@ int is_match_reg_exp_circles(char *current_word, char *pattern){
     k=1;
     i=0;
     return (is_match_in_place(current_word, temp1, j, i) || is_match_in_place(current_word, temp2, k, i));
-
 }
 */
 
@@ -86,7 +85,9 @@ int is_word_ends(const char *word, int index){
 
 
 //checks if pattern matches to the first chars of current line.
-int is_match_in_place(char *current_line, regular_exp_tav* regular_exp_tav_array, size_t zero_index_of_pattern,size_t size_of_array) {
+int is_match_in_place(char *current_line, regular_exp_tav* regular_exp_tav_array,
+                      size_t zero_index_of_pattern,size_t size_of_array) {
+
 
     size_t size_of_current_pattern = size_of_array - zero_index_of_pattern;
     if(current_line==0 && size_of_current_pattern!=0){
@@ -94,12 +95,12 @@ int is_match_in_place(char *current_line, regular_exp_tav* regular_exp_tav_array
         return 0;
     }
     if(size_of_current_pattern==0){
-
         return 1;
     }
     if((regular_exp_tav_array[zero_index_of_pattern]).regular_exp.normal_tav==*current_line){
 
-        return is_match_in_place(current_line+1,regular_exp_tav_array,zero_index_of_pattern+1,size_of_array);
+        return is_match_in_place(current_line+1,regular_exp_tav_array,
+                                 zero_index_of_pattern+1,size_of_array);
     }
     return 0;
 
@@ -123,18 +124,26 @@ char * str_to_lowercase( char *str)
 void match_in_case_e(char *current_line, regular_exp_tav* regular_exp_tav_array, size_t size_of_array, int* is_match){
 
 
+
     while(*current_line != '\n' && *is_match==0) {
-       *is_match=is_match_in_place(current_line,regular_exp_tav_array,0,size_of_array);
+        *is_match=is_match_in_place(current_line,regular_exp_tav_array,0,size_of_array);
         current_line++;
     }
 
 }
 void match_in_case_x(char* current_line,char* pattern, int* is_match) {
-    if (!strcmp(current_line, pattern))
-        *is_match = 1;
+    int i=0;
+    while (pattern[i] != '\0'){
+        if(pattern[i] != current_line[i]) {
+            *is_match = 0;
+            return;
+        }
+        i++;
+    }
+    if((current_line[i] == '\r') || (current_line[i] == '\n') || (current_line[i] == '\0'))
+        *is_match =1;
     else
-        *is_match = 0;
-
+        *is_match=0;
 
 }
 
@@ -166,7 +175,8 @@ void match_in_case_i( char* current_line, char* pattern){
 //public functions
 
 
-int is_match_in_line(switches* switches_status, char* current_line, char* pattern, int* match_counter,regular_exp_tav* array_of_reg_exp_tav,size_t size_of_array_of_reg_exp_tav){
+int is_match_in_line(switches* switches_status, char* current_line, char* pattern, int* match_counter,
+                     regular_exp_tav* array_of_reg_exp_tav,size_t size_of_array_of_reg_exp_tav){
 
     int is_match=0;
 
@@ -181,7 +191,8 @@ int is_match_in_line(switches* switches_status, char* current_line, char* patter
 
 
     if((switches_status->e).value == 1){
-         match_in_case_e(current_line,array_of_reg_exp_tav,size_of_array_of_reg_exp_tav,&is_match);
+
+        match_in_case_e(current_line,array_of_reg_exp_tav,size_of_array_of_reg_exp_tav,&is_match);
 
     }
 
@@ -190,7 +201,7 @@ int is_match_in_line(switches* switches_status, char* current_line, char* patter
         match_in_case_x(current_line,pattern, &is_match);
     }
 
-    if(strstr(current_line, pattern) != NULL)
+    if((strstr(current_line, pattern) != NULL) && (switches_status->x ==0))
         is_match=1;
 
     //Test for v case.
@@ -204,4 +215,3 @@ int is_match_in_line(switches* switches_status, char* current_line, char* patter
     }
     return is_match;
 }
-

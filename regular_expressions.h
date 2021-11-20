@@ -9,7 +9,7 @@ typedef enum type_of_regular_exp{
 } type_of_regular_exp;
 
 typedef struct point{
-int initialize_point; //set point to 1 to indicate that it's a point
+    int initialize_point; //set point to 1 to indicate that it's a point
 
 }point;
 

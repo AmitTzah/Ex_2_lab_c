@@ -51,7 +51,8 @@ int is_stdin(pattern_file_indexes pattern_file_indexes);
 
 void close_file_if_needed(FILE *fptr, int is_stdin_);
 
-void parse_reg_exp(switches switches_status,char* temp_pattern,regular_exp_tav** array_of_reg_exp_tav,size_t* size_of_array_of_reg_exp_tav);
+void parse_reg_exp(switches switches_status,char* temp_pattern,regular_exp_tav** array_of_reg_exp_tav,
+                   size_t* size_of_array_of_reg_exp_tav);
 
 void get_temp_pattern(int argc, char **arguments_arr,pattern_file_indexes* indexes,char **temp_pattern);
 

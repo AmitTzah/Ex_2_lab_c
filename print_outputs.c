@@ -20,17 +20,20 @@ void print_Line_break_after_the_last_line_if_needed( char* current_line){
 
 }
 
-void print_According_to_n( int line_counter){
+void print_According_to_n(switches* switches_status, int line_counter){
 
+    if(switches_status->a.line_printed_since_match > 0)
+        printf("%d-",line_counter);
+    else
         printf("%d:", line_counter);
 }
 void print_According_to_b(size_t bytes_counter){
 
-        printf("%zu:", bytes_counter);
+    printf("%zu:", bytes_counter);
 }
 void printer( char *line){
 
-        printf("%s", line);
+    printf("%s", line);
 }
 void print_non_match_lines(FILE *fptr, char *phrase){
 
@@ -50,7 +53,8 @@ void print_non_match_lines(FILE *fptr, char *phrase){
 
 
 //public functions
-void print_According_to_switches(switches* switches_status, int is_match, int lines_counter , int* match_counter, size_t bytes_counter, char* current_line ){
+void print_According_to_switches(switches* switches_status, int is_match, int lines_counter , int* match_counter,
+                                 size_t bytes_counter, char* current_line ){
 
     //check if we actually need to print something
     if(is_match==0){
@@ -74,7 +78,7 @@ void print_According_to_switches(switches* switches_status, int is_match, int li
     }
 
     if(switches_status->n) {
-        print_According_to_n( lines_counter);
+        print_According_to_n(switches_status, lines_counter);
     }
 
     if(switches_status->b) {
@@ -92,6 +96,4 @@ void c_case_print(switches switches_status, int match_counter){
 
     }
 }
-
-
 
