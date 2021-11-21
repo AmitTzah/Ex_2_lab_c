@@ -53,6 +53,7 @@ int main(int argc, char *argv[]) {
 
     free(current_line);
     free(temp_pattern);
+    free_reg(array_of_reg_exp_tav);
     free(array_of_reg_exp_tav);
 
     close_file_if_needed(fptr, is_stdin_);
