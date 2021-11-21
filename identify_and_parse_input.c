@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 #include "identify_and_parse_input.h"
-#include "regular_expressions.h"
+
 
 
 
@@ -36,10 +36,6 @@ size_t num_of_reg_exps_in_pattern(char* temp_pattern){
         }
 
         num_of_reg_exps_in_pattern++;
-    }
-    //check for  '\'
-    if(temp_pattern[i] == 0x5c){
-        i++;
     }
 
     num_of_reg_exps_in_pattern++;
@@ -235,7 +231,7 @@ void get_temp_pattern(int argc, char **arguments_arr,pattern_file_indexes* index
 
 void parse_reg_exp(switches switches_status,char* temp_pattern,regular_exp_tav** array_of_reg_exp_tav,
                    size_t* size_of_array_of_reg_exp_tav){
-    int i=0;
+    size_t i=0;
     int j=0;
     int k=0;
     int left=0, right=0, middle=0;
@@ -285,7 +281,7 @@ void parse_reg_exp(switches switches_status,char* temp_pattern,regular_exp_tav**
 
         }
 
-        int n =i;
+        size_t n =i;
         for (i=n; i < strlen(temp_pattern); i++) {
 
             // put (str|str) into array

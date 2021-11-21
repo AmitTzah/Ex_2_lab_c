@@ -13,7 +13,7 @@ char find_next_char(char *pattern, int index){
         return pattern[index];
 }
 
-void set_arr_of_reg_exp_tav_round_bracket(regular_exp_tav** array_of_reg_exp_tav, char *pattern,int arr_index, int i){
+void set_arr_of_reg_exp_tav_round_bracket(regular_exp_tav** array_of_reg_exp_tav, char *pattern,int arr_index, size_t i){
     int k=0;
 
     if((pattern[i] == 0x28) && (pattern[i-1] != 0x5c)){
@@ -35,7 +35,7 @@ void set_arr_of_reg_exp_tav_round_bracket(regular_exp_tav** array_of_reg_exp_tav
         (((*array_of_reg_exp_tav)[arr_index]).regular_exp).round_brackets_tav.str2[k] = '\0';
     }
 }
-void set_arr_of_reg_exp_tav_square_bracket(regular_exp_tav** array_of_reg_exp_tav, char *pattern, int arr_index,int  i){
+void set_arr_of_reg_exp_tav_square_bracket(regular_exp_tav** array_of_reg_exp_tav, char *pattern, int arr_index,size_t  i){
 
 
     if((pattern[i] == 0x5b) && (pattern[i-1] != 0x5c)){
