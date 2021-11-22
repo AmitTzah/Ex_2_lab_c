@@ -100,14 +100,14 @@ square_brackets find_squares_values(char *pattern){
 
 }
 
-void free_reg(regular_exp_tav ** array_of_reg){
-    int i=0;
-    while(*array_of_reg != 0){
-        if(array_of_reg[i]->type_of_regular_exp.is_round_bracket){
-            free(array_of_reg[i]->regular_exp.round_brackets_tav.str1);
-            free(array_of_reg[i]->regular_exp.round_brackets_tav.str2);
+void free_strings_inside_reg_array(regular_exp_tav * array_of_reg, size_t array_size){
+    int i;
+    for(i=0; i<array_size; i++){
+        if(array_of_reg[i].type_of_regular_exp.is_round_bracket){
+            free(array_of_reg[i].regular_exp.round_brackets_tav.str1);
+            free(array_of_reg[i].regular_exp.round_brackets_tav.str2);
         }
-        i++;
+
     }
 
 

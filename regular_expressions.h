@@ -49,6 +49,5 @@ void set_arr_of_reg_exp_tav_round_bracket(regular_exp_tav** array_of_reg_exp_tav
                                           int arr_index, size_t i);
 void set_arr_of_reg_exp_tav_square_bracket(regular_exp_tav** array_of_reg_exp_tav, char *pattern,
                                            int arr_index,size_t  i);
-void free_reg(regular_exp_tav ** array_of_reg);
-
+void free_strings_inside_reg_array(regular_exp_tav * array_of_reg, size_t array_size);
 #endif
