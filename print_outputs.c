@@ -34,21 +34,6 @@ void print_According_to_b(size_t bytes_counter){
 void printer( char *line){
     printf("%s", line);
 }
-void print_non_match_lines(FILE *fptr, char *phrase){
-
-    char *current_line = NULL;
-    size_t n;
-
-    while(getline(&current_line, &n, fptr) != EOF){
-        if (strstr(current_line, phrase) != NULL)
-            continue;
-        else
-            printf("%s", current_line);
-    }
-    free(current_line);
-    fclose(fptr);
-
-}
 
 
 //public functions

@@ -17,7 +17,7 @@ int main(int argc, char *argv[]) {
     int lines_counter = 0, is_match, match_counter = 0;
 
     switches switches_status;
-    switches_status = check_switch_case(argc, argv,pattern_file_indexes.pattern_index);
+    switches_status = check_switch_case(argc, argv);
     switches* p_switches_status= &switches_status;
 
     int is_stdin_=is_stdin(pattern_file_indexes);
@@ -27,7 +27,7 @@ int main(int argc, char *argv[]) {
     char *temp_pattern=NULL;
     regular_exp_tav* array_of_reg_exp_tav=NULL;
     size_t size_of_array_of_reg_exp_tav=0;
-    get_temp_pattern(argc, argv, &pattern_file_indexes, &temp_pattern);
+    get_temp_pattern(argv, &pattern_file_indexes, &temp_pattern);
     parse_reg_exp(switches_status,temp_pattern+1,&array_of_reg_exp_tav,&size_of_array_of_reg_exp_tav);
 
     char *current_line = NULL;

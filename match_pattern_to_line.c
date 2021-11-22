@@ -42,68 +42,7 @@ void flip_is_match(int * is_match,int is_v_on){
 }
 
 
-
-/*
-char *find_current_pattern(char *str, char *pattern, int offset){
-    char *temp_pattern = (char*) malloc(strlen(pattern));
-    strcpy(temp_pattern, str);
-    int i = strlen(temp_pattern);
-    while (!is_word_ends(pattern, i) && pattern[i+offset] != 0x29) {
-        temp_pattern[i] = pattern[i + offset];
-        i++;
-    }
-
-        return temp_pattern;
-}
-
-int is_match_round_brackets(char *current_line, regular_exp_tav* regular_exp_tav_array, size_t size_of_array,
-                            int* is_match, switches* swt,int* match_counter, char *pattern, size_t index){
-    int option1 = 0, option2 = 0;
-    char *temp_pattern = find_current_pattern(((regular_exp_tav_array[index]).regular_exp).round_brackets_tav.str1,
-                                              pattern, strlen(((regular_exp_tav_array[index+1]).regular_exp).round_brackets_tav.str2)+3);
-
-    regular_exp_tav_array[index].regular_exp.normal_tav = *temp_pattern;
-    option1 = is_match_in_place(current_line,regular_exp_tav_array, index, size_of_array, is_match, swt, match_counter, temp_pattern);
-
-
-    temp_pattern = find_current_pattern(((regular_exp_tav_array[index+1]).regular_exp).round_brackets_tav.str2,
-                                        pattern, strlen(((regular_exp_tav_array[index]).regular_exp).round_brackets_tav.str1)+3);
-
-    regular_exp_tav_array[index].regular_exp.normal_tav = *temp_pattern;
-    option2 = is_match_in_place(current_line,regular_exp_tav_array, index+1, size_of_array, is_match, swt, match_counter, temp_pattern);
-
-    regular_exp_tav_array[index].type_of_regular_exp.is_round_bracket = 1;
-
-    free(temp_pattern);
-    return option1||option2;
-
-}
-*/
-
-/*
-int is_match_round_brackets(char *temp_line, regular_exp_tav* regular_exp_tav_array, size_t zero_index_of_pattern,
-                            size_t size_of_array, char* temp_pattern, char *original_pattern){
-
-    size_t size_of_current_pattern = size_of_array - zero_index_of_pattern;
-
-
-    if((temp_pattern==NULL)&&(size_of_current_pattern == 0))
-        return 1;
-    if((*temp_pattern == *temp_line) && (is_word_ends(temp_line, 0)))
-        return 1;
-    if(*temp_pattern == 0)
-        return is_match_in_place(temp_line, regular_exp_tav_array, zero_index_of_pattern+1, size_of_array,
-                                 NULL, original_pattern);
-    if(*temp_pattern == *temp_line) {
-
-        return is_match_in_place(temp_line + 1, regular_exp_tav_array, zero_index_of_pattern, size_of_array,
-                             temp_pattern + 1, original_pattern);
-    }
-    return is_match_in_place(temp_line + 1, regular_exp_tav_array, zero_index_of_pattern, size_of_array, original_pattern, original_pattern);
-}
-*/
-
-int does_str_match_the_current_line_from_offset(char * temp_pattern,int* zero_index_of_line,char * current_line){
+int does_str_match_the_current_line_from_offset(char * temp_pattern,const int* zero_index_of_line,char * current_line){
     int i= (*zero_index_of_line);
     int j=0;
     int is_match=1;
@@ -218,59 +157,6 @@ int  is_match_in_place(char *current_line, regular_exp_tav* regular_exp_tav_arra
         return 0;
     }
 }
-/*
-    size_t size_of_current_pattern = size_of_array - zero_index_of_pattern;
-    if((current_line==0 && size_of_current_pattern!=0)){
-
-        return 0;
-    }
-    if(size_of_current_pattern==0){
-        return 1;
-    }
-    if((regular_exp_tav_array[zero_index_of_pattern]).regular_exp.point_tav.initialize_point == 1){
-        return is_match_in_place(current_line+1, regular_exp_tav_array,zero_index_of_pattern+1
-                                 , size_of_array, temp_pattern, original_pattern);
-    }
-
-
-    if((regular_exp_tav_array[zero_index_of_pattern]).type_of_regular_exp.is_square_brackets == 1){
-        if((*current_line <= (regular_exp_tav_array[zero_index_of_pattern]).regular_exp.square_brackets_tav.max_val)
-        && (*current_line >= (regular_exp_tav_array[zero_index_of_pattern]).regular_exp.square_brackets_tav.min_val))
-            return 1;
-        else
-            return is_match_in_place(current_line+1, regular_exp_tav_array,
-                                     zero_index_of_pattern, size_of_array, temp_pattern, original_pattern);
-    }
-    if((regular_exp_tav_array[zero_index_of_pattern]).type_of_regular_exp.is_round_bracket == 1) {
-        char *temp_pattern_1, *temp_pattern_2 , *original_1, *original_2;
-
-        if(temp_pattern == NULL) {
-            temp_pattern_1 = ((regular_exp_tav_array)[zero_index_of_pattern].regular_exp.round_brackets_tav.str1);
-            temp_pattern_2 = ((regular_exp_tav_array)[zero_index_of_pattern].regular_exp.round_brackets_tav.str2);
-            original_1 = regular_exp_tav_array[zero_index_of_pattern].regular_exp.round_brackets_tav.str1;
-            original_2 = regular_exp_tav_array[zero_index_of_pattern].regular_exp.round_brackets_tav.str2;
-
-        }
-        else {
-            return is_match_round_brackets(current_line, regular_exp_tav_array, zero_index_of_pattern, size_of_array,
-                                    temp_pattern,original_pattern);
-        }
-
-        return (is_match_round_brackets(current_line, regular_exp_tav_array, zero_index_of_pattern, size_of_array,
-                                        temp_pattern_1, original_1)|| (is_match_round_brackets(current_line,regular_exp_tav_array,
-                                                                                   zero_index_of_pattern,
-                                                                                   size_of_array,temp_pattern_2, original_2)));
-    }
-    if((regular_exp_tav_array[zero_index_of_pattern]).regular_exp.normal_tav==*current_line){
-
-        return is_match_in_place(current_line+1, regular_exp_tav_array,
-                                 zero_index_of_pattern+1, size_of_array, temp_pattern, original_pattern);
-    }
-    return 0;
-*/
-
-
-
 
 
 void match_in_case_e(char *current_line, regular_exp_tav* regular_exp_tav_array, size_t size_of_array, int* is_match,
@@ -285,7 +171,7 @@ void match_in_case_e(char *current_line, regular_exp_tav* regular_exp_tav_array,
     }
 
 }
-void match_in_case_x(char* current_line,char* pattern, int* is_match) {
+void match_in_case_x(const char* current_line,const char* pattern, int* is_match) {
     int i=0;
     while (pattern[i] != '\0'){
         if(pattern[i] != current_line[i]) {

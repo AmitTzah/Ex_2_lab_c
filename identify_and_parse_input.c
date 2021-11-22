@@ -59,7 +59,7 @@ size_t num_of_reg_exps_in_pattern(char* temp_pattern){
 
 
 
-switches check_switch_case(int argc, char **arguments_arr, size_t pattern_index) {
+switches check_switch_case(int argc, char **arguments_arr) {
     int i;
     switches switches_status={0};
 
@@ -106,7 +106,6 @@ switches check_switch_case(int argc, char **arguments_arr, size_t pattern_index)
         }
         if (!strcmp(arguments_arr[i], "-E")) {
             switches_status.e.value = 1;
-            switches_status.e.pattern = arguments_arr[pattern_index];
 
             switches_status.no_switches=0;
 
@@ -202,7 +201,7 @@ void find_index_of_pattern_and_file_arguments(int argc, char **arguments_arr,pat
 
 }
 
-void get_temp_pattern(int argc, char **arguments_arr,pattern_file_indexes* indexes,char **temp_pattern){
+void get_temp_pattern( char **arguments_arr,pattern_file_indexes* indexes,char **temp_pattern){
 
     *temp_pattern= calloc((strlen(arguments_arr[indexes->pattern_index]))+2,sizeof(char));
     strcpy((*temp_pattern)+1,arguments_arr[indexes->pattern_index]);

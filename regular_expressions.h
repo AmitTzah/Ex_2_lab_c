@@ -40,14 +40,10 @@ typedef struct regular_exp_tav{
     regular_exp    regular_exp;
 }regular_exp_tav;
 
-char find_next_char(char *pattern, int index);
-int check_if_dot_reg_exp_in_given_pattern(char* pattern);
-int check_if_circles_reg_exp_in_given_pattern(char* pattern);
-int check_if_squares_reg_exp_in_given_pattern(char *pattern);
-square_brackets find_squares_values(char *pattern);
+
 void set_arr_of_reg_exp_tav_round_bracket(regular_exp_tav** array_of_reg_exp_tav, char *pattern,
                                           int arr_index, size_t i);
-void set_arr_of_reg_exp_tav_square_bracket(regular_exp_tav** array_of_reg_exp_tav, char *pattern,
+void set_arr_of_reg_exp_tav_square_bracket(regular_exp_tav** array_of_reg_exp_tav, const char *pattern,
                                            int arr_index,size_t  i);
 void free_strings_inside_reg_array(regular_exp_tav * array_of_reg, size_t array_size);
 #endif
