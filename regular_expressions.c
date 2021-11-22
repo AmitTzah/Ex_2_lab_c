@@ -27,8 +27,7 @@ void set_arr_of_reg_exp_tav_round_bracket(regular_exp_tav** array_of_reg_exp_tav
             i++;
             k++;
         }
-        ((*(array_of_reg_exp_tav)[arr_index]).regular_exp).round_brackets_tav.str1[k] = '\n';
-        ((*(array_of_reg_exp_tav)[arr_index]).regular_exp).round_brackets_tav.str1[k+1] = '\0';
+        ((*(array_of_reg_exp_tav)[arr_index]).regular_exp).round_brackets_tav.str1[k] = '\0';
         i++;
         k=0;
         while ((pattern[i] != 0x29) && (pattern[i-1] != 0x5c)) {
@@ -36,8 +35,8 @@ void set_arr_of_reg_exp_tav_round_bracket(regular_exp_tav** array_of_reg_exp_tav
             i++;
             k++;
         }
-        ((*(array_of_reg_exp_tav)[arr_index]).regular_exp).round_brackets_tav.str2[k] = '\n';
-        ((*(array_of_reg_exp_tav)[arr_index]).regular_exp).round_brackets_tav.str2[k+1] = '\0';
+        ((*(array_of_reg_exp_tav)[arr_index]).regular_exp).round_brackets_tav.str2[k] = '\0';
+
     }
 }
 void set_arr_of_reg_exp_tav_square_bracket(regular_exp_tav** array_of_reg_exp_tav, char *pattern,

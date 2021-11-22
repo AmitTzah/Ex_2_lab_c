@@ -250,6 +250,7 @@ void parse_reg_exp(switches switches_status,char* temp_pattern,regular_exp_tav**
                 //put point into array
             else if ((temp_pattern[i] == 0x2e) && (temp_pattern[i - 1] != 0x5c)) { // Ascii for '.' is 2e
                 (((*array_of_reg_exp_tav)[j]).regular_exp).point_tav.initialize_point=1;
+                 (((*array_of_reg_exp_tav)[j]).type_of_regular_exp).is_point=1;
                 j++;
                  if(j==*size_of_array_of_reg_exp_tav) break;
 
@@ -259,12 +260,13 @@ void parse_reg_exp(switches switches_status,char* temp_pattern,regular_exp_tav**
 
                 //skip '\'
             else if(temp_pattern[i] == 0x5c){
-
+                continue;
             }
 
                 //put normal_tav into array
             else{
-                (((*array_of_reg_exp_tav)[j]).regular_exp).normal_tav=temp_pattern[i];
+                ((*array_of_reg_exp_tav)[j]).regular_exp.normal_tav=temp_pattern[i];
+                 ((*array_of_reg_exp_tav)[j]).type_of_regular_exp.is_normal_tav=1;
                 j++;
                  if(j==*size_of_array_of_reg_exp_tav) break;
 
