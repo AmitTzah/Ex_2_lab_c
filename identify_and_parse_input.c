@@ -13,8 +13,8 @@
 
 size_t num_of_reg_exps_in_pattern(char* temp_pattern){
     size_t num_of_reg_exps_in_pattern=0;
-    int i=0;
-    //treat i=0 case before the loop since we don't want to access [i-1]
+    int i;
+
     //TODO break this code in functions to avoid code duplication
 
 
@@ -204,66 +204,27 @@ void find_index_of_pattern_and_file_arguments(int argc, char **arguments_arr,pat
 
 void get_temp_pattern(int argc, char **arguments_arr,pattern_file_indexes* indexes,char **temp_pattern){
 
-    *temp_pattern= calloc((strlen(arguments_arr[indexes->pattern_index]))+1,sizeof(char));
-    strcpy(*temp_pattern,arguments_arr[indexes->pattern_index]);
+    *temp_pattern= calloc((strlen(arguments_arr[indexes->pattern_index]))+2,sizeof(char));
+    strcpy((*temp_pattern)+1,arguments_arr[indexes->pattern_index]);
 
 
 }
 
 void parse_reg_exp(switches switches_status,char* temp_pattern,regular_exp_tav** array_of_reg_exp_tav,
                    size_t* size_of_array_of_reg_exp_tav){
-    size_t i=0;
+    size_t i;
     int j=0;
-    int k=0;
-    int left=0, right=0, middle=0;
+
     *size_of_array_of_reg_exp_tav =num_of_reg_exps_in_pattern(temp_pattern);
     *array_of_reg_exp_tav=calloc((*size_of_array_of_reg_exp_tav),sizeof(struct regular_exp_tav));
 
     if ((switches_status.e.value)==1){
 
-        //treat i=0 case before the loop since we don't want to access [i-1]
+
         //TODO break this code into functions to avoid code duplication
         // Write (str|str) and [x-y] cases.
 
-        // put (str|str) into array
-        set_arr_of_reg_exp_tav_round_bracket(array_of_reg_exp_tav, temp_pattern, j, i);
-        if((array_of_reg_exp_tav[j]->type_of_regular_exp).is_round_bracket == 1) {
-            i += strlen((array_of_reg_exp_tav[j]->regular_exp).round_brackets_tav.str1);
-            i += strlen((array_of_reg_exp_tav[j]->regular_exp).round_brackets_tav.str2);
-            i += 3;
-            j ++;
-        }
-            // put [x-y] into array
-        set_arr_of_reg_exp_tav_square_bracket(array_of_reg_exp_tav, temp_pattern, j,i);
-        if((((*array_of_reg_exp_tav)[j]).type_of_regular_exp).is_square_brackets ==1) {
-            i += 5;
-            j++;
-        }
-
-            //put point into array
-        else if (temp_pattern[i] == 0x2e) { // Ascii for '.' is 2e
-            (((*array_of_reg_exp_tav)[j]).regular_exp).point_tav.initialize_point=1;
-            i++;
-            j++;
-
-        }
-
-            //skip '\'
-        else if(temp_pattern[i] == 0x5c){
-            i++;
-
-        }
-
-            //put normal_tav into array
-        else{
-            (((*array_of_reg_exp_tav)[j]).regular_exp).normal_tav=temp_pattern[i];
-            j++;
-            i++;
-
-        }
-
-        size_t n =i;
-        for (i=n; i < strlen(temp_pattern); i++) {
+        for (i=0; i < strlen(temp_pattern); i++) {
 
             // put (str|str) into array
             set_arr_of_reg_exp_tav_round_bracket(array_of_reg_exp_tav, temp_pattern, j,i);
@@ -272,30 +233,29 @@ void parse_reg_exp(switches switches_status,char* temp_pattern,regular_exp_tav**
                 i += strlen((((*array_of_reg_exp_tav)[j]).regular_exp).round_brackets_tav.str2);
                 i += 3;
                 j++;
+                if(j==*size_of_array_of_reg_exp_tav) break;
+
             }
                 // put [x-y] into array
-            if((temp_pattern[i] == 0x5b) && (temp_pattern[i-1] != 0x5c)){
-                (((*array_of_reg_exp_tav)[j]).type_of_regular_exp).is_square_brackets = 1;
-                i++;
-                while ((temp_pattern[i] != 0x2d) && (temp_pattern[i-1] != 0x5c)){
-                    (((*array_of_reg_exp_tav)[j]).regular_exp).square_brackets_tav.min_val = temp_pattern[i];
-                    i++;
-                }
-                i++;
-                while ((temp_pattern[i] != 0x5d) && (temp_pattern[i-1] != 0x5c)) {
-                    (((*array_of_reg_exp_tav)[j]).regular_exp).square_brackets_tav.max_val = temp_pattern[i];
-                    i++;
-                }
+            set_arr_of_reg_exp_tav_square_bracket(array_of_reg_exp_tav, temp_pattern, j,i);
+             if((((*array_of_reg_exp_tav)[j]).type_of_regular_exp).is_square_brackets ==1) {
+                i += 5;
                 j++;
-            }
+                if(j==*size_of_array_of_reg_exp_tav) break;
+
+
+             }
 
 
                 //put point into array
             else if ((temp_pattern[i] == 0x2e) && (temp_pattern[i - 1] != 0x5c)) { // Ascii for '.' is 2e
                 (((*array_of_reg_exp_tav)[j]).regular_exp).point_tav.initialize_point=1;
                 j++;
+                 if(j==*size_of_array_of_reg_exp_tav) break;
 
-            }
+
+
+             }
 
                 //skip '\'
             else if(temp_pattern[i] == 0x5c){
@@ -306,11 +266,11 @@ void parse_reg_exp(switches switches_status,char* temp_pattern,regular_exp_tav**
             else{
                 (((*array_of_reg_exp_tav)[j]).regular_exp).normal_tav=temp_pattern[i];
                 j++;
-
-            }
-
+                 if(j==*size_of_array_of_reg_exp_tav) break;
 
 
+
+             }
 
 
         }

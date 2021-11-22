@@ -28,7 +28,7 @@ int main(int argc, char *argv[]) {
     regular_exp_tav* array_of_reg_exp_tav=NULL;
     size_t size_of_array_of_reg_exp_tav=0;
     get_temp_pattern(argc, argv, &pattern_file_indexes, &temp_pattern);
-    parse_reg_exp(switches_status,temp_pattern,&array_of_reg_exp_tav,&size_of_array_of_reg_exp_tav);
+    parse_reg_exp(switches_status,temp_pattern+1,&array_of_reg_exp_tav,&size_of_array_of_reg_exp_tav);
 
     char *current_line = NULL;
     char* temp_current_line=NULL;
@@ -38,7 +38,7 @@ int main(int argc, char *argv[]) {
         temp_current_line= calloc((strlen(current_line))+1, sizeof(char));
         strcpy(temp_current_line,current_line);
 
-        is_match = is_match_in_line(p_switches_status, temp_current_line,temp_pattern,&match_counter,
+        is_match = is_match_in_line(p_switches_status, temp_current_line,temp_pattern+1,&match_counter,
                                     array_of_reg_exp_tav,size_of_array_of_reg_exp_tav);
 
         print_According_to_switches(p_switches_status,is_match,lines_counter,&match_counter, bytes_counter,
