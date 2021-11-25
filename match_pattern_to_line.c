@@ -107,10 +107,11 @@ int is_match_between_line_and_current_array_element(char * current_line,regular_
              *zero_index_of_line = (*zero_index_of_line) + (strlen(temp_pattern_1));
          }
 
-         else {
+         else if(is_match_str_2 == 1) {
              *zero_index_of_line = (*zero_index_of_line) + (strlen(temp_pattern_2));
 
          }
+
         is_match=(is_match_str_2 | is_match_str_1);
 
     }
@@ -118,8 +119,8 @@ int is_match_between_line_and_current_array_element(char * current_line,regular_
     //else- square brackets
     else {
 
-        if((*current_line <= (regular_exp_tav_array[*zero_index_of_pattern]).regular_exp.square_brackets_tav.max_val)
-           && (*current_line >= (regular_exp_tav_array[*zero_index_of_pattern]).regular_exp.square_brackets_tav.min_val)){
+        if((current_line[*zero_index_of_line] <= (regular_exp_tav_array[*zero_index_of_pattern]).regular_exp.square_brackets_tav.max_val)
+           && (current_line[*zero_index_of_line] >= (regular_exp_tav_array[*zero_index_of_pattern]).regular_exp.square_brackets_tav.min_val)){
             is_match= 1;
         }
         else{
