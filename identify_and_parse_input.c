@@ -47,6 +47,7 @@ size_t num_of_reg_exps_in_pattern(char* temp_pattern){
             i++;
         }
 
+        num_of_reg_exps_in_pattern++;
 
     }
 
