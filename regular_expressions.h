@@ -6,7 +6,7 @@
 typedef struct type_of_regular_exp{
     int is_normal_tav;
     int is_point;
-    int is_round_bracket;
+    char is_round_bracket;
     int is_square_brackets;
 }type_of_regular_exp;
 

@@ -39,7 +39,6 @@ size_t num_of_reg_exps_in_pattern(char* temp_pattern){
             {
                 i++;
             }
-            i++;
             num_of_reg_exps_in_pattern++;
             continue;
         }
@@ -48,7 +47,6 @@ size_t num_of_reg_exps_in_pattern(char* temp_pattern){
             i++;
         }
 
-        num_of_reg_exps_in_pattern++;
 
     }
 
@@ -238,7 +236,7 @@ void parse_reg_exp(switches switches_status,char* temp_pattern,regular_exp_tav**
                 // put [x-y] into array
             set_arr_of_reg_exp_tav_square_bracket(array_of_reg_exp_tav, temp_pattern, j,i);
              if((((*array_of_reg_exp_tav)[j]).type_of_regular_exp).is_square_brackets ==1) {
-                i += 5;
+                i += 4;
                 j++;
                 if(j==*size_of_array_of_reg_exp_tav) break;
 
