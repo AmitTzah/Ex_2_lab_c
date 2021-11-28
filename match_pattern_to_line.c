@@ -131,16 +131,21 @@ int is_match_in_place(char *current_line, regular_exp_tav *regular_exp_tav_array
 }
 
 void match_in_case_e(char *current_line, regular_exp_tav *regular_exp_tav_array, size_t size_of_array, int *is_match,
-                     switches *swt)
+                     switches *swt, int* check_x_case_inside_e_case)
 {
   size_t zero_index_of_pattern = 0;
   size_t zero_index_of_line = 0;
+  int while_counter=0;
 
   while ((*current_line != '\n') && (*current_line != '\0') && *is_match == 0) {
     zero_index_of_pattern = 0;
     *is_match = is_match_in_place(current_line, regular_exp_tav_array, &zero_index_of_pattern, zero_index_of_line,
                                   size_of_array, swt);
+    while_counter++;
     current_line++;
+  }
+  if(while_counter==1){
+    *check_x_case_inside_e_case=1;
   }
 }
 void match_in_case_x(const char *current_line, const char *pattern, int *is_match)
@@ -192,6 +197,7 @@ int is_match_in_line(switches *switches_status, char *current_line, char *patter
 {
 
   int is_match = 0;
+  int check_x_case_inside_e_case=0;
 
   if (strstr(current_line, pattern) != NULL && switches_status->no_switches == 1) {
     is_match = 1;
@@ -201,10 +207,17 @@ int is_match_in_line(switches *switches_status, char *current_line, char *patter
     match_in_case_i(current_line, pattern);
   }
   if ((switches_status->e).value == 1) {
-    match_in_case_e(current_line, array_of_reg_exp_tav, size_of_array_of_reg_exp_tav, &is_match, switches_status);
+    match_in_case_e(current_line, array_of_reg_exp_tav, size_of_array_of_reg_exp_tav, &is_match,
+                    switches_status,&check_x_case_inside_e_case);
   }
 
-  if (switches_status->x == 1) {
+  if ((switches_status->e).value == 1 && switches_status->x == 1 ) {
+    match_in_case_e(current_line, array_of_reg_exp_tav, size_of_array_of_reg_exp_tav, &is_match,
+                    switches_status,&check_x_case_inside_e_case);
+    is_match= is_match & check_x_case_inside_e_case;
+  }
+
+  if (switches_status->x == 1 && (switches_status->e).value != 1) {
     match_in_case_x(current_line, pattern, &is_match);
   }
 
