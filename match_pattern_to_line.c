@@ -73,13 +73,10 @@ int does_str_match_the_current_line_from_offset(char *temp_pattern, const size_t
 int is_match_between_line_and_current_array_element(char *current_line, regular_exp_tav *regular_exp_tav_array,
                                                     size_t *zero_index_of_pattern, size_t *zero_index_of_line)
 {
-  int is_match;
-  int is_match_str_1;
-  int is_match_str_2;
+  int is_match, is_match_str_1, is_match_str_2;
 
   if ((regular_exp_tav_array[*zero_index_of_pattern]).type_of_regular_exp.is_normal_tav == 1) {
     if ((current_line[*zero_index_of_line]) == (regular_exp_tav_array[*zero_index_of_pattern]).regular_exp.normal_tav) {
-
       *zero_index_of_line = (*zero_index_of_line) + 1;
       is_match = 1;
     } else {
@@ -98,7 +95,6 @@ int is_match_between_line_and_current_array_element(char *current_line, regular_
     char *temp_pattern_2 = ((regular_exp_tav_array)[*zero_index_of_pattern].regular_exp.round_brackets_tav.str2);
 
     is_match_str_1 = does_str_match_the_current_line_from_offset(temp_pattern_1, zero_index_of_line, current_line);
-
     is_match_str_2 = does_str_match_the_current_line_from_offset(temp_pattern_2, zero_index_of_line, current_line);
 
     if (is_match_str_1 == 1) {
