@@ -12,8 +12,7 @@ int main(int argc, char *argv[])
   pattern_file_indexes pattern_file_indexes = {0};
   find_index_of_pattern_and_file_arguments(argc, argv, &pattern_file_indexes);
 
-  size_t n;
-  size_t bytes_counter = 0;
+  size_t n, bytes_counter = 0;
   int lines_counter = 0, is_match, match_counter = 0;
 
   switches switches_status;
@@ -29,8 +28,7 @@ int main(int argc, char *argv[])
   get_temp_pattern(argv, &pattern_file_indexes, &temp_pattern);
   parse_reg_exp(switches_status, temp_pattern + 1, &array_of_reg_exp_tav, &size_of_array_of_reg_exp_tav);
 
-  char *current_line = NULL;
-  char *temp_current_line = NULL;
+  char *current_line = NULL, *temp_current_line = NULL;
 
   while (read_input_line(&current_line, &n, fptr, is_stdin_) != EOF) {
     lines_counter++;

@@ -4,6 +4,8 @@
 #include "identify_and_parse_input.h"
 #include "match_pattern_to_line.h"
 
+//Private functions:
+
 char *str_to_lowercase(char *str)
 {
 
@@ -55,10 +57,8 @@ int does_str_match_the_current_line_from_offset(char *temp_pattern, const size_t
   int is_match = 1;
 
   if (strlen(current_line + (*zero_index_of_line)) < strlen(temp_pattern)) {
-
     return 0;
   }
-
   while (current_line[i] != '\n' && current_line[i] != '\0' && temp_pattern[j] != '\0') {
     if (current_line[i] != temp_pattern[j]) {
       is_match = 0;
@@ -67,7 +67,6 @@ int does_str_match_the_current_line_from_offset(char *temp_pattern, const size_t
     j++;
     i++;
   }
-
   return is_match;
 }
 
@@ -205,9 +204,7 @@ int is_match_in_line(switches *switches_status, char *current_line, char *patter
   if (switches_status->i == 1) {
     match_in_case_i(current_line, pattern);
   }
-
   if ((switches_status->e).value == 1) {
-
     match_in_case_e(current_line, array_of_reg_exp_tav, size_of_array_of_reg_exp_tav, &is_match, switches_status);
   }
 
@@ -218,7 +215,6 @@ int is_match_in_line(switches *switches_status, char *current_line, char *patter
   if ((strstr(current_line, pattern) != NULL) && (switches_status->x != 1)) {
     is_match = 1;
   }
-
   // Test for v case.
   flip_is_match(&is_match, switches_status->v);
 

@@ -34,7 +34,6 @@ void print_According_to_switches(switches *switches_status, int is_match, int li
 
   // check if we actually need to print something
   if (is_match == 0) {
-
     return;
   }
 
