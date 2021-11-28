@@ -202,6 +202,7 @@ int is_match_in_line(switches *switches_status, char *current_line, char *patter
   int is_match = 0;
   int check_x_case_inside_e_case=0;
 
+
   if (strstr(current_line, pattern) != NULL && switches_status->no_switches == 1) {
     is_match = 1;
   }

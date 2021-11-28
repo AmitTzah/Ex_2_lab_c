@@ -17,14 +17,33 @@ void print_Line_break_after_the_last_line_if_needed(char *current_line)
 
 void print_According_to_n(switches *switches_status, int line_counter)
 {
+    int is_it_a_pattern_match=0;
+    if((switches_status->a).line_remains_to_print == (switches_status->a).lines_to_print_case_A + 1){
 
-  if (switches_status->a.line_printed_since_match > 0) {
+        is_it_a_pattern_match=1;
+    }
+
+  if (switches_status->a.line_printed_since_match > 0 && !is_it_a_pattern_match) {
     printf("%d-", line_counter);
   } else {
     printf("%d:", line_counter);
   }
 }
-void print_According_to_b(size_t bytes_counter) { printf("%zu:", bytes_counter); }
+void print_According_to_b(size_t bytes_counter,switches *switches_status) {
+
+    int is_it_a_pattern_match=0;
+    if((switches_status->a).line_remains_to_print == (switches_status->a).lines_to_print_case_A + 1){
+
+        is_it_a_pattern_match=1;
+    }
+
+    if (switches_status->a.line_printed_since_match > 0 && !is_it_a_pattern_match) {
+        printf("%zu-", bytes_counter);
+    } else {
+        printf("%zu:", bytes_counter);
+    }
+
+}
 void printer(char *line) { printf("%s", line); }
 
 // public functions
@@ -56,7 +75,7 @@ void print_According_to_switches(switches *switches_status, int is_match, int li
   }
 
   if (switches_status->b) {
-    print_According_to_b(bytes_counter);
+    print_According_to_b(bytes_counter, switches_status);
   }
 
   printer(current_line);
