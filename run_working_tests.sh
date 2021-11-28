@@ -28,3 +28,8 @@ gcc *.c -o my_grep
 ~nimrodav/grep_tests/run10.sh
 ~nimrodav/grep_tests/run11.sh
 ~nimrodav/grep_tests/run12.sh
+~nimrodav/grep_tests/run13.sh
+~nimrodav/grep_tests/run14.sh
+~nimrodav/grep_tests/run15.sh
+~nimrodav/grep_tests/run16.sh
+~nimrodav/grep_tests/run17.sh
