@@ -5,7 +5,7 @@
 
 // Constants:
 #define DOT_ASCII 0x2e
-#define INCREMENT_INDEX_AFTER_ROUND_SETTING 3
+#define INCREMENT_INDEX_AFTER_ROUND_SETTING 2
 #define INCREMENT_INDEX_AFTER_SQUARE_SETTING 4
 
 // private functions
@@ -203,18 +203,20 @@ void parse_reg_exp(switches switches_status, char *temp_pattern, regular_exp_tav
   *array_of_reg_exp_tav = calloc((*size_of_array_of_reg_exp_tav), sizeof(struct regular_exp_tav));
 
   while ((i < strlen(temp_pattern)) && ((switches_status.e.value) == 1)) {
+
     // put (str|str) into array
-    set_arr_of_reg_exp_tav_round_bracket(array_of_reg_exp_tav, temp_pattern, j, i);
-    if ((((*array_of_reg_exp_tav)[j]).type_of_regular_exp).is_round_bracket == 1) {
-      i += increment_index_after_reg_set((((*array_of_reg_exp_tav)[j]).regular_exp.round_brackets_tav));
+    if ((temp_pattern[i] == LEFT_ROUND_BRACKET_ASCII) && (temp_pattern[i - 1] != BACKSLASH_ASCII)) {
+        set_arr_of_reg_exp_tav_round_bracket(array_of_reg_exp_tav, temp_pattern, j, i);
+        i += increment_index_after_reg_set((((*array_of_reg_exp_tav)[j]).regular_exp.round_brackets_tav));
       j++;
       if (j == *size_of_array_of_reg_exp_tav) {
         break;
       }
     }
-    set_arr_of_reg_exp_tav_square_bracket(array_of_reg_exp_tav, temp_pattern, j, i);  // put [x-y] into array
-    if ((((*array_of_reg_exp_tav)[j]).type_of_regular_exp).is_square_brackets == 1) {
-      i += INCREMENT_INDEX_AFTER_SQUARE_SETTING;
+     // put [x-y] into array
+    else if ((temp_pattern[i] == LEFT_SQUARE_BRACKET_ASCII) && (temp_pattern[i - 1] != BACKSLASH_ASCII)) {
+        set_arr_of_reg_exp_tav_square_bracket(array_of_reg_exp_tav, temp_pattern, j, i);
+        i += INCREMENT_INDEX_AFTER_SQUARE_SETTING;
       j++;
       if (j == *size_of_array_of_reg_exp_tav) {
         break;

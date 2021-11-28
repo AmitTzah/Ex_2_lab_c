@@ -16,6 +16,7 @@ gcc *.c -o my_grep
 ./working_tests/run13.sh
 ./working_tests/run14.sh
 ./working_tests/run15.sh
+./working_tests/run16.sh
 ~nimrodav/grep_tests/run1.sh
 ~nimrodav/grep_tests/run2.sh
 ~nimrodav/grep_tests/run3.sh
