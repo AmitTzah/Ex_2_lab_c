@@ -1,6 +1,7 @@
-#include "regular_expressions.h"
 #include <stdlib.h>
 #include <string.h>
+
+#include "regular_expressions.h"
 
 // Constants:
 #define SEPERATOR_ASCII 0x7c

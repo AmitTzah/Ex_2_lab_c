@@ -8,7 +8,6 @@
 
 int main(int argc, char *argv[])
 {
-
   pattern_file_indexes pattern_file_indexes = {0};
   find_index_of_pattern_and_file_arguments(argc, argv, &pattern_file_indexes);
 
@@ -22,10 +21,12 @@ int main(int argc, char *argv[])
   int is_stdin_ = is_stdin(pattern_file_indexes);
   FILE *fptr = NULL;
   open_file_or_stdin(&fptr, argv, is_stdin_, pattern_file_indexes);
+
   char *temp_pattern = NULL;
+  get_temp_pattern(argv, &pattern_file_indexes, &temp_pattern);
+
   regular_exp_tav *array_of_reg_exp_tav = NULL;
   size_t size_of_array_of_reg_exp_tav = 0;
-  get_temp_pattern(argv, &pattern_file_indexes, &temp_pattern);
   parse_reg_exp(switches_status, temp_pattern + 1, &array_of_reg_exp_tav, &size_of_array_of_reg_exp_tav);
 
   char *current_line = NULL, *temp_current_line = NULL;

@@ -7,7 +7,6 @@
 
 // private functions
 
-// if the last line doesn't have a line break character, grep will add it.
 void print_Line_break_after_the_last_line_if_needed(char *current_line)
 {
   if (strchr(current_line, '\n') == NULL) {
@@ -51,7 +50,6 @@ void print_According_to_switches(switches *switches_status, int is_match, int li
                                  size_t bytes_counter, char *current_line)
 {
 
-  // check if we actually need to print something
   if (is_match == 0) {
     return;
   }

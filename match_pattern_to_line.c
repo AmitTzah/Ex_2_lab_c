@@ -236,7 +236,7 @@ int is_match_in_line(switches *switches_status, char *current_line, char *patter
   if ((strstr(current_line, pattern) != NULL) && (switches_status->x != 1)) {
     is_match = 1;
   }
-  // Test for v case.
+
   flip_is_match(&is_match, switches_status->v);
 
   if ((switches_status->a).value == 1) {

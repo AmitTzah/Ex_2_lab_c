@@ -1,10 +1,9 @@
 #ifndef CASES_H
 #define CASES_H
 
-#include "regular_expressions.h"
 #include <stdio.h>
 
-// Constants:
+#include "regular_expressions.h"
 
 typedef struct pattern_file_indexes {
   size_t pattern_index;
