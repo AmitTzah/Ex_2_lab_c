@@ -1,7 +1,7 @@
-identify_and_parse_input: identify the input source, read it and parse and creates reletives variables according to the casses taken.
+identify_and_parse_input: identifies the input -cases, pattern,file/stdin- then parses accordingly.
 
-match_pattern_to_line: recives the current line and pattern after parsing the input, check if there is a match according to the switches case.
+match_pattern_to_line: receives the current line and pattern after parsing the input. Checks for a match according to switch cases.
 
-print_outputs: if match was found, prints the current line to output according to the switches case.
+print_outputs: if match was found, prints the current line to output according to switch cases.
 
-regular_expressions: handles the regular expressions unique cases and set the structure array. 
+regular_expressions: handles the structs, arrays, and set-arrays-functions that are needed to construct an array of regular expression tavs.
