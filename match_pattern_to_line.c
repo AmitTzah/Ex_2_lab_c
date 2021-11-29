@@ -4,7 +4,7 @@
 #include "identify_and_parse_input.h"
 #include "match_pattern_to_line.h"
 
-//Private functions:
+// Private functions:
 
 char *str_to_lowercase(char *str)
 {
@@ -116,29 +116,29 @@ int is_match_between_line_and_current_array_element(char *current_line, regular_
 
 // checks if pattern matches to the first chars of current line.
 int is_match_in_place(char *current_line, regular_exp_tav *regular_exp_tav_array, size_t *zero_index_of_pattern,
-                      size_t zero_index_of_line, size_t size_of_array, switches *swt, int * check_x_case_inside_e_case)
+                      size_t zero_index_of_line, size_t size_of_array, switches *swt, int *check_x_case_inside_e_case)
 {
   int is_match = is_match_between_line_and_current_array_element(current_line, regular_exp_tav_array,
                                                                  zero_index_of_pattern, &zero_index_of_line);
   if (is_match == 1 && *zero_index_of_pattern == size_of_array) {
-    if(zero_index_of_line== (strlen(current_line) -1)){
-      *check_x_case_inside_e_case=1;
+    if (zero_index_of_line == (strlen(current_line) - 1)) {
+      *check_x_case_inside_e_case = 1;
     }
     return 1;
   } else if (is_match == 1 && *zero_index_of_pattern != size_of_array) {
     return is_match_in_place(current_line, regular_exp_tav_array, zero_index_of_pattern, zero_index_of_line,
-                             size_of_array, swt,check_x_case_inside_e_case);
+                             size_of_array, swt, check_x_case_inside_e_case);
   } else {
     return 0;
   }
 }
 
 void match_in_case_e(char *current_line, regular_exp_tav *regular_exp_tav_array, size_t size_of_array, int *is_match,
-                     switches *swt, int* check_x_case_inside_e_case)
+                     switches *swt, int *check_x_case_inside_e_case)
 {
   size_t zero_index_of_pattern = 0;
   size_t zero_index_of_line = 0;
-  int while_counter=0;
+  int while_counter = 0;
 
   while ((*current_line != '\n') && (*current_line != '\0') && *is_match == 0) {
     zero_index_of_pattern = 0;
@@ -147,8 +147,8 @@ void match_in_case_e(char *current_line, regular_exp_tav *regular_exp_tav_array,
     while_counter++;
     current_line++;
   }
-  if(while_counter!=1){
-    *check_x_case_inside_e_case=0;
+  if (while_counter != 1) {
+    *check_x_case_inside_e_case = 0;
   }
 }
 void match_in_case_x(const char *current_line, const char *pattern, int *is_match)
@@ -170,16 +170,15 @@ void match_in_case_x(const char *current_line, const char *pattern, int *is_matc
 
 void match_in_case_A(int *is_match, switches *switches_status, int *match_counter)
 {
-    if((switches_status->a).line_remains_to_print < 2 && *is_match!=1){
-        switches_status->a.was_there_a_non_matched_line_before_this_matched_line=1;
-
-    }
+  if ((switches_status->a).line_remains_to_print < 2 && *is_match != 1) {
+    switches_status->a.was_there_a_non_matched_line_before_this_matched_line = 1;
+  }
   if (*is_match == 1) {
     (switches_status->a).line_remains_to_print = (switches_status->a).lines_to_print_case_A + 1;
     if ((switches_status->a).line_printed_since_match == (switches_status->a).lines_to_print_case_A) {
       (switches_status->a).should_print_dash = switches_status->a.was_there_a_non_matched_line_before_this_matched_line;
     }
-      switches_status->a.was_there_a_non_matched_line_before_this_matched_line=0;
+    switches_status->a.was_there_a_non_matched_line_before_this_matched_line = 0;
   }
 
   else {
@@ -205,8 +204,7 @@ int is_match_in_line(switches *switches_status, char *current_line, char *patter
 {
 
   int is_match = 0;
-  int check_x_case_inside_e_case=0;
-
+  int check_x_case_inside_e_case = 0;
 
   if (strstr(current_line, pattern) != NULL && switches_status->no_switches == 1) {
     is_match = 1;
@@ -216,18 +214,16 @@ int is_match_in_line(switches *switches_status, char *current_line, char *patter
     match_in_case_i(current_line, pattern);
   }
 
-  if ((switches_status->e).value == 1 && switches_status->x == 1 ) {
-    match_in_case_e(current_line, array_of_reg_exp_tav, size_of_array_of_reg_exp_tav, &is_match,
-                    switches_status,&check_x_case_inside_e_case);
-    is_match= is_match & check_x_case_inside_e_case;
+  if ((switches_status->e).value == 1 && switches_status->x == 1) {
+    match_in_case_e(current_line, array_of_reg_exp_tav, size_of_array_of_reg_exp_tav, &is_match, switches_status,
+                    &check_x_case_inside_e_case);
+    is_match = is_match & check_x_case_inside_e_case;
   }
-
 
   else if ((switches_status->e).value == 1) {
-    match_in_case_e(current_line, array_of_reg_exp_tav, size_of_array_of_reg_exp_tav, &is_match,
-                    switches_status,&check_x_case_inside_e_case);
+    match_in_case_e(current_line, array_of_reg_exp_tav, size_of_array_of_reg_exp_tav, &is_match, switches_status,
+                    &check_x_case_inside_e_case);
   }
-
 
   else if (switches_status->x == 1 && (switches_status->e).value != 1) {
     match_in_case_x(current_line, pattern, &is_match);

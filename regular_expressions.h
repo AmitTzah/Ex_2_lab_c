@@ -3,7 +3,6 @@
 
 #include <stdlib.h>
 
-
 // Constants:
 
 #define LEFT_ROUND_BRACKET_ASCII 0x28

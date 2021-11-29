@@ -11,13 +11,12 @@
 // private functions
 size_t increment_index_after_reg_set(round_brackets round_reg_exp)
 {
-    size_t i = 0;
-    i += strlen((round_reg_exp.str1));
-    i += strlen((round_reg_exp.str2));
-    i += INCREMENT_INDEX_AFTER_ROUND_SETTING;
-    return i;
+  size_t i = 0;
+  i += strlen((round_reg_exp.str1));
+  i += strlen((round_reg_exp.str2));
+  i += INCREMENT_INDEX_AFTER_ROUND_SETTING;
+  return i;
 }
-
 
 size_t num_of_reg_exps_in_pattern(char *temp_pattern)
 {
@@ -94,7 +93,7 @@ switches check_switch_case(int argc, char **arguments_arr)
       switches_status.a.lines_to_print_case_A = atoi(arguments_arr[i + 1]);
       switches_status.a.line_remains_to_print = 0;
       switches_status.a.line_printed_since_match = 0;
-      switches_status.a.was_there_a_non_matched_line_before_this_matched_line=0;
+      switches_status.a.was_there_a_non_matched_line_before_this_matched_line = 0;
       switches_status.no_switches = 0;
     }
     if (!strcmp(arguments_arr[i], "-E")) {
@@ -194,7 +193,6 @@ void get_temp_pattern(char **arguments_arr, pattern_file_indexes *indexes, char 
   strcpy((*temp_pattern) + 1, arguments_arr[indexes->pattern_index]);
 }
 
-
 void parse_reg_exp(switches switches_status, char *temp_pattern, regular_exp_tav **array_of_reg_exp_tav,
                    size_t *size_of_array_of_reg_exp_tav)
 {
@@ -205,19 +203,18 @@ void parse_reg_exp(switches switches_status, char *temp_pattern, regular_exp_tav
 
   while ((i < strlen(temp_pattern)) && ((switches_status.e.value) == 1)) {
 
-    // put (str|str) into array
     if ((temp_pattern[i] == LEFT_ROUND_BRACKET_ASCII) && (temp_pattern[i - 1] != BACKSLASH_ASCII)) {
-        set_arr_of_reg_exp_tav_round_bracket(array_of_reg_exp_tav, temp_pattern, j, i);
-        i += increment_index_after_reg_set((((*array_of_reg_exp_tav)[j]).regular_exp.round_brackets_tav));
+      set_arr_of_reg_exp_tav_round_bracket(array_of_reg_exp_tav, temp_pattern, j, i);
+      i += increment_index_after_reg_set((((*array_of_reg_exp_tav)[j]).regular_exp.round_brackets_tav));
       j++;
       if (j == *size_of_array_of_reg_exp_tav) {
         break;
       }
     }
-     // put [x-y] into array
+
     else if ((temp_pattern[i] == LEFT_SQUARE_BRACKET_ASCII) && (temp_pattern[i - 1] != BACKSLASH_ASCII)) {
-        set_arr_of_reg_exp_tav_square_bracket(array_of_reg_exp_tav, temp_pattern, j, i);
-        i += INCREMENT_INDEX_AFTER_SQUARE_SETTING;
+      set_arr_of_reg_exp_tav_square_bracket(array_of_reg_exp_tav, temp_pattern, j, i);
+      i += INCREMENT_INDEX_AFTER_SQUARE_SETTING;
       j++;
       if (j == *size_of_array_of_reg_exp_tav) {
         break;
@@ -232,7 +229,7 @@ void parse_reg_exp(switches switches_status, char *temp_pattern, regular_exp_tav
         break;
       }
     }
-    // skip '\' when needed
+
     else if ((temp_pattern[i] == BACKSLASH_ASCII) &&
              ((temp_pattern[i - 1] != BACKSLASH_ASCII) ||
               ((temp_pattern[i - 1] == BACKSLASH_ASCII) && (temp_pattern[i - 2] == BACKSLASH_ASCII)))) {
