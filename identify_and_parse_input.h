@@ -18,6 +18,7 @@ typedef struct case_A {
   int line_remains_to_print;
   int line_printed_since_match;
   int should_print_dash;
+  int was_there_a_non_matched_line_before_this_matched_line;
 } case_A;
 
 typedef struct case_E {

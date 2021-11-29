@@ -170,11 +170,16 @@ void match_in_case_x(const char *current_line, const char *pattern, int *is_matc
 
 void match_in_case_A(int *is_match, switches *switches_status, int *match_counter)
 {
+    if((switches_status->a).line_remains_to_print < 2 && *is_match!=1){
+        switches_status->a.was_there_a_non_matched_line_before_this_matched_line=1;
+
+    }
   if (*is_match == 1) {
     (switches_status->a).line_remains_to_print = (switches_status->a).lines_to_print_case_A + 1;
     if ((switches_status->a).line_printed_since_match == (switches_status->a).lines_to_print_case_A) {
-      (switches_status->a).should_print_dash = 1;
+      (switches_status->a).should_print_dash = switches_status->a.was_there_a_non_matched_line_before_this_matched_line;
     }
+      switches_status->a.was_there_a_non_matched_line_before_this_matched_line=0;
   }
 
   else {

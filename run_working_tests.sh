@@ -20,6 +20,7 @@ gcc *.c -o my_grep
 ./working_tests/run17.sh
 ./working_tests/run18.sh
 ./working_tests/run19.sh
+./working_tests/run20.sh
 ~nimrodav/grep_tests/run1.sh
 ~nimrodav/grep_tests/run2.sh
 ~nimrodav/grep_tests/run3.sh

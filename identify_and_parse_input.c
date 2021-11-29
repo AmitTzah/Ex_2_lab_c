@@ -94,6 +94,7 @@ switches check_switch_case(int argc, char **arguments_arr)
       switches_status.a.lines_to_print_case_A = atoi(arguments_arr[i + 1]);
       switches_status.a.line_remains_to_print = 0;
       switches_status.a.line_printed_since_match = 0;
+      switches_status.a.was_there_a_non_matched_line_before_this_matched_line=0;
       switches_status.no_switches = 0;
     }
     if (!strcmp(arguments_arr[i], "-E")) {
