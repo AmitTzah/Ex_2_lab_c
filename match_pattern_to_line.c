@@ -6,18 +6,7 @@
 
 // Private functions:
 
-char *str_to_lowercase(char *str)
-{
 
-  int i = 0;
-  while (str[i] != '\0') {
-
-    str[i] = tolower(str[i]);
-    i++;
-  }
-  str[i] = '\0';
-  return str;
-}
 
 void flip_is_match(int *is_match, int is_v_on)
 {

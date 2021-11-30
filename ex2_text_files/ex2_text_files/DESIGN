@@ -1,0 +1,7 @@
+identify_and_parse_input: identify the input source, read it and parse and creates reletives variables according to the casses taken.
+
+match_pattern_to_line: recives the current line and pattern after parsing the input, check if there is a match according to the switches case.
+
+print_outputs: if match was found, prints the current line to output according to the switches case.
+
+regular_expressions: handles the regular expressions unique cases and set the structure array. 

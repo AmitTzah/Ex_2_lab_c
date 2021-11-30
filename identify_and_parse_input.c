@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 
 #include "identify_and_parse_input.h"
 
@@ -55,6 +56,18 @@ size_t num_of_reg_exps_in_pattern(char *temp_pattern)
 }
 
 // public functions.
+char *str_to_lowercase(char *str)
+{
+
+    int i = 0;
+    while (str[i] != '\0') {
+
+        str[i] = tolower(str[i]);
+        i++;
+    }
+    str[i] = '\0';
+    return str;
+}
 
 switches check_switch_case(int argc, char **arguments_arr)
 {
@@ -163,7 +176,7 @@ void find_index_of_pattern_and_file_arguments(int argc, char **arguments_arr, pa
 
   int i;
   for (i = 1; i < argc; i++) {
-    if (arguments_arr[i][1] == 'A') {
+    if ((arguments_arr[i][1] == 'A') && (arguments_arr[i][0] == '-')) {
       i += 1;
       continue;
     }
@@ -201,6 +214,7 @@ void parse_reg_exp(switches switches_status, char *temp_pattern, regular_exp_tav
   *size_of_array_of_reg_exp_tav = num_of_reg_exps_in_pattern(temp_pattern);
   *array_of_reg_exp_tav = calloc((*size_of_array_of_reg_exp_tav), sizeof(struct regular_exp_tav));
 
+  if(switches_status.i == 1) { str_to_lowercase(temp_pattern);}
   while ((i < strlen(temp_pattern)) && ((switches_status.e.value) == 1)) {
 
     if ((temp_pattern[i] == LEFT_ROUND_BRACKET_ASCII) && (temp_pattern[i - 1] != BACKSLASH_ASCII)) {

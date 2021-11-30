@@ -37,6 +37,8 @@ typedef struct switches_flags {
   int no_switches;
 } switches;
 
+char *str_to_lowercase(char *str);
+
 switches check_switch_case(int argc, char **arguments_arr);
 
 void find_index_of_pattern_and_file_arguments(int argc, char **arguments_arr, pattern_file_indexes *indexes);
