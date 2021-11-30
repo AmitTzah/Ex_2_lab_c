@@ -1,6 +1,6 @@
+#include <ctype.h>
 #include <stdlib.h>
 #include <string.h>
-#include <ctype.h>
 
 #include "identify_and_parse_input.h"
 
@@ -59,14 +59,14 @@ size_t num_of_reg_exps_in_pattern(char *temp_pattern)
 char *str_to_lowercase(char *str)
 {
 
-    int i = 0;
-    while (str[i] != '\0') {
+  int i = 0;
+  while (str[i] != '\0') {
 
-        str[i] = tolower(str[i]);
-        i++;
-    }
-    str[i] = '\0';
-    return str;
+    str[i] = tolower(str[i]);
+    i++;
+  }
+  str[i] = '\0';
+  return str;
 }
 
 switches check_switch_case(int argc, char **arguments_arr)
@@ -213,8 +213,9 @@ void parse_reg_exp(switches switches_status, char *temp_pattern, regular_exp_tav
   int j = 0;
   *size_of_array_of_reg_exp_tav = num_of_reg_exps_in_pattern(temp_pattern);
   *array_of_reg_exp_tav = calloc((*size_of_array_of_reg_exp_tav), sizeof(struct regular_exp_tav));
-
-  if(switches_status.i == 1) { str_to_lowercase(temp_pattern);}
+  if (switches_status.i == 1) {
+    str_to_lowercase(temp_pattern);
+  }
   while ((i < strlen(temp_pattern)) && ((switches_status.e.value) == 1)) {
 
     if ((temp_pattern[i] == LEFT_ROUND_BRACKET_ASCII) && (temp_pattern[i - 1] != BACKSLASH_ASCII)) {
@@ -224,9 +225,7 @@ void parse_reg_exp(switches switches_status, char *temp_pattern, regular_exp_tav
       if (j == *size_of_array_of_reg_exp_tav) {
         break;
       }
-    }
-
-    else if ((temp_pattern[i] == LEFT_SQUARE_BRACKET_ASCII) && (temp_pattern[i - 1] != BACKSLASH_ASCII)) {
+    } else if ((temp_pattern[i] == LEFT_SQUARE_BRACKET_ASCII) && (temp_pattern[i - 1] != BACKSLASH_ASCII)) {
       set_arr_of_reg_exp_tav_square_bracket(array_of_reg_exp_tav, temp_pattern, j, i);
       i += INCREMENT_INDEX_AFTER_SQUARE_SETTING;
       j++;

@@ -6,8 +6,6 @@
 
 // Private functions:
 
-
-
 void flip_is_match(int *is_match, int is_v_on)
 {
 
